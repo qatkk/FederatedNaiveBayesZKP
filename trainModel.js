@@ -1,7 +1,9 @@
 const { transpose, mean, std, indexDependencies, i } = require('mathjs');
 const {readCSV, trainTestSplit} = require('./dataHandler'); 
 const gaussian = require("normal-distribution");
-const { default: NormalDistribution } = require('normal-distribution');
+const  NormalDistribution  = require('gaussian');
+const argmax = require('compute-argmax');
+
 
 NumberOfFeatures = 5; 
 data = readCSV('iris', NumberOfFeatures); 
@@ -12,8 +14,6 @@ idx = [];
 target = ['Iris-virginica', 'Iris-versicolor', 'Iris-setosa']; 
 
 
-// coll = res.train[0].map(function (_, c) { return res.train.map(function (r) { return r[c]; }); });
-// console.log(coll);
 coll = transpose(res.train);
 
 
@@ -23,8 +23,13 @@ for (let i= 0; i < target.length; i++) {
     idx.push(coll[4].indexOf(target[i]));
 }
 idx.push(coll[4].length); 
+// sort string values in order of occurence 
 idx = idx.sort();
-distributions = [[NormalDistribution]];
+for (let i = 0 ; i<target.length ; i++) { 
+    target[i] = coll[4][idx[i]];
+}
+console.log(target);
+distributions = [[]];
 for (let i=0; i < coll.length -1 ; i++) {
     arr = coll[i]; 
     for (let j=0; j< target.length; j++) {
@@ -35,18 +40,37 @@ for (let i=0; i < coll.length -1 ; i++) {
     }
 }
 
-console.log(means);
+probs = Array(res.test.length).fill().map(() => Array(target.length).fill(0));
+predLabels = Array(res.test.length).fill(0); 
+prob = Array(4).fill().map(() => Array(target.length).fill(1));
+labelStr = transpose(res.test)[4];
 
-probs = Array(NumberOfFeatures - 1).fill().map(() => Array(target.length).fill(0));
-console.log(res.test[1][2]);
-console.log(distributions[11].pdf(res.test[1][2]));
-for (let i=0; i < 5 ; i++) {
-    for (let j=0; j< target.length; j++) {
-        val = i*j ;
-        tempDist = distributions[val];
-        probs[i][j] = tempDist.pdf(res.test[1][i]);
+let tp = 0 ;
+labels = []; 
+for (let Id = 0; Id < res.test.length; Id ++) {
+    prob = Array(target.length).fill(1);
+    for (let i = 0; i < 4 ; i++) {
+        for (let j=0; j< target.length; j++) {
+            tempProp = distributions[3*i + j+1].pdf(res.test[Id][i]);
+            prob[j] = prob[j] * tempProp;
+        } 
+
+    }
+    probs[Id] = prob;
+    predLabels[Id] = argmax(prob);
+    if (labelStr[Id] == target[0]){
+        labels.push(0);
+    }   
+    else if (labelStr[Id] == target[1]){
+        labels.push(1);
+    }  
+    else {
+        labels.push(2);
+    }  
+    if (labels[Id] == predLabels[Id]) {
+        tp += 1;
     }
 }
-
-
-console.log(probs);
+console.log(predLabels); 
+console.log(labels);
+console.log("accuracy is ", tp/labels.length);

@@ -9,6 +9,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "compute-argmax": "^1.0.0",
+    "gaussian": "^1.2.0",
     "math": "0.0.3",
     "mathjs": "^10.1.1",
     "normal-distribution": "^1.1.1"
