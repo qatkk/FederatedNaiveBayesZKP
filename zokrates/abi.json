@@ -1,37 +1,32 @@
 {
   "inputs": [
     {
-      "name": "R",
-      "public": false,
-      "type": "array",
-      "components": {
-        "size": 2,
-        "type": "field"
-      }
-    },
-    {
-      "name": "s",
-      "public": false,
-      "type": "field"
-    },
-    {
-      "name": "Y",
+      "name": "a",
       "public": true,
       "type": "array",
       "components": {
         "size": 2,
-        "type": "field"
+        "type": "array",
+        "components": {
+          "size": 22,
+          "type": "u32"
+        }
       }
     },
     {
-      "name": "M",
+      "name": "mean",
       "public": true,
-      "type": "field"
+      "type": "u32"
+    },
+    {
+      "name": "accuracy",
+      "public": true,
+      "type": "u32"
     }
   ],
   "outputs": [
     {
-      "type": "bool"
+      "type": "u32"
     }
   ]
 }

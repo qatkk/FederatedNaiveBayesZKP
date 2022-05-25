@@ -1,7 +1,8 @@
-def main(u32[2][2] a) -> u32:
-
+def main(u32[2][22] a, u32 mean, u32 accuracy) -> u32:
     u32 res = 0
-    for u32 i in 0..2 do
-        res = res + a[i]
-    endfor
-    return (res / 2)
+        for u32 j in 0..20 do
+            u32 r = mean - a[1][j]
+            res = res + (r*r)
+        endfor 
+        res = res/(20 - 1) / accuracy
+    return (res)
