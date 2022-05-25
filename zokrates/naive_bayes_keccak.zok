@@ -41,6 +41,5 @@ def verifySig<N,D>(private u32[N][D] data, private field[N][2] R, private field[
 
 def main(private u32[20][4] data, private field[20][2] R, private field[20] s, field[2] Y, u32[4] mu, u32[4] sigma) -> bool:
     bool out = true
-    out = out && verifySig::<20,4>(data, R, s, Y)
     out = out && naivebayes::<20,4>(data, mu, sigma)
     return out
