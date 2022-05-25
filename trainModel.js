@@ -56,7 +56,7 @@ dataAppended = data.map((x, index) =>  {
 });
 
 console.log(dataAppended, 120 - data[0].length);
-console.log(means, stds);
+console.log('mean and std of the trained model ', means, stds);
 probs = Array(res.test.length).fill().map(() => Array(target.length).fill(0));
 predLabels = Array(res.test.length).fill(0); 
 prob = Array(4).fill().map(() => Array(target.length).fill(1));
