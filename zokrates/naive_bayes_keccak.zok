@@ -1,0 +1,46 @@
+import "ecc/babyjubjubParams" as context
+from "ecc/babyjubjubParams" import BabyJubJubParams
+
+import "./u32_array_to_u64_array" as u32_array_to_u64_array
+import "./verifyEddsa_keccak" as verifyEddsa_keccak
+import "hashes/keccak/256bit.zok" as hash
+
+def mean<N>(u32[N] a) -> u32:
+    u32 res = 0
+    for u32 i in 0..N do
+        res = res + a[i]
+    endfor
+    return (res / N)
+
+def var<N>(u32[N] a, u32 mu) -> u32:
+    u32 res = 0
+    for u32 i in 0..N do
+        u32 r = (res - mu)
+        res = res + (r*r)
+    endfor
+    return (res / (N-1))
+
+def naivebayes<N, D>(private u32[N][D] data, u32[D] mu, u32[D] sigma) -> bool:
+    bool out = true
+    for u32 i in 0..D do
+        out = out && (mu[i] == mean(data[i]))
+    endfor
+    for u32 i in 0..D do
+        out = out && (sigma[i] == var(data[i], mu[i]))
+    endfor
+    return out
+
+def verifySig<N,D>(private u32[N][D] data, private field[N][2] R, private field[N] s, field[2] Y) -> bool:
+    bool out = true
+    BabyJubJubParams context = context()
+    for u32 i in 0..N do
+        u64[4] M = hash(u32_array_to_u64_array(data[i]))
+        out = out && verifyEddsa_keccak(R[i], s[i], Y, M, context)
+    endfor
+    return out
+
+def main(private u32[20][4] data, private field[20][2] R, private field[20] s, field[2] Y, u32[4] mu, u32[4] sigma) -> bool:
+    bool out = true
+    out = out && verifySig::<20,4>(data, R, s, Y)
+    out = out && naivebayes::<20,4>(data, mu, sigma)
+    return out

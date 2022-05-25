@@ -1,0 +1,7 @@
+def main(u32[5] a) -> u32:
+
+    u32 res = 0
+    for u32 i in 0..5 do
+        res = res + a[i]
+    endfor
+    return (res / 5)

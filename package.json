@@ -1,0 +1,28 @@
+{
+  "name": "naivebayes",
+  "version": "1.0.0",
+  "description": "",
+  "main": "code.js",
+  "scripts": {
+    "start": "node --experimental-worker "
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@hugoalh/repattern": "^0.6.0",
+    "bigint-conversion": "^2.1.11",
+    "circomlib": "^0.2.4",
+    "compute-argmax": "^1.0.0",
+    "crypto": "^1.0.1",
+    "ffjavascript": "^0.1.0",
+    "gaussian": "^1.2.0",
+    "math": "0.0.3",
+    "mathjs": "^10.1.1",
+    "normal-distribution": "^1.1.1",
+    "threads": "^1.7.0",
+    "tiny-worker": "^2.3.0",
+    "web3-utils": "^1.7.0",
+    "worker-threads": "^1.0.0",
+    "worker-threads.js": "^1.6.5"
+  }
+}

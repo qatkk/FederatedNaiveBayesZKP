@@ -1,0 +1,11 @@
+from "hashes/mimc7/mimc7" import main as hash
+
+def main<N>(field[N] x) -> field:
+    field r = 0
+    field k = 0
+
+    for u32 i in 0..N do
+        r = (r + x[i]) + hash::<91>(x[i], r)
+    endfor
+
+    return r

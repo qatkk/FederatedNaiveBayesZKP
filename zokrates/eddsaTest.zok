@@ -1,0 +1,10 @@
+import "ecc/babyjubjubParams" as context
+from "ecc/babyjubjubParams" import BabyJubJubParams
+import "./u32_array_to_field_array" as u32_array_to_field_array
+import "./verifyEddsa_mimc7" as verifyEddsa_mimc7
+import "./mimc7_hash" as hash
+def main (private field [2] R, private field s, field[2] Y, field M ) -> bool:
+    bool out = true 
+    BabyJubJubParams context = context()
+    out = verifyEddsa_mimc7(R, s, Y, M, context)
+    return out
