@@ -1,6 +1,0 @@
-links : 
-
-
-
-EDdSA implementation in python 
-https://github.com/warner/python-pure25519/blob/c88a6aeee0653c46c429f096ec3090388f77525a/pure25519/eddsa.py#L51

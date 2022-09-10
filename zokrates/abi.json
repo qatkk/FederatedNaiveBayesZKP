@@ -1,32 +1,142 @@
 {
   "inputs": [
     {
-      "name": "a",
-      "public": true,
+      "name": "data",
+      "public": false,
       "type": "array",
       "components": {
-        "size": 2,
+        "size": 5,
         "type": "array",
         "components": {
-          "size": 22,
+          "size": 100,
           "type": "u32"
         }
       }
     },
     {
-      "name": "mean",
-      "public": true,
+      "name": "mu",
+      "public": false,
+      "type": "array",
+      "components": {
+        "size": 5,
+        "type": "u32"
+      }
+    },
+    {
+      "name": "sigma",
+      "public": false,
+      "type": "array",
+      "components": {
+        "size": 5,
+        "type": "u32"
+      }
+    },
+    {
+      "name": "dataPoints",
+      "public": false,
       "type": "u32"
     },
     {
       "name": "accuracy",
       "public": true,
       "type": "u32"
+    },
+    {
+      "name": "mean_M",
+      "public": false,
+      "type": "array",
+      "components": {
+        "size": 5,
+        "type": "array",
+        "components": {
+          "size": 2,
+          "type": "field"
+        }
+      }
+    },
+    {
+      "name": "mean_R",
+      "public": true,
+      "type": "array",
+      "components": {
+        "size": 5,
+        "type": "array",
+        "components": {
+          "size": 2,
+          "type": "field"
+        }
+      }
+    },
+    {
+      "name": "mean_C",
+      "public": true,
+      "type": "array",
+      "components": {
+        "size": 5,
+        "type": "array",
+        "components": {
+          "size": 2,
+          "type": "field"
+        }
+      }
+    },
+    {
+      "name": "var_M",
+      "public": false,
+      "type": "array",
+      "components": {
+        "size": 5,
+        "type": "array",
+        "components": {
+          "size": 2,
+          "type": "field"
+        }
+      }
+    },
+    {
+      "name": "var_R",
+      "public": true,
+      "type": "array",
+      "components": {
+        "size": 5,
+        "type": "array",
+        "components": {
+          "size": 2,
+          "type": "field"
+        }
+      }
+    },
+    {
+      "name": "var_C",
+      "public": true,
+      "type": "array",
+      "components": {
+        "size": 5,
+        "type": "array",
+        "components": {
+          "size": 2,
+          "type": "field"
+        }
+      }
+    },
+    {
+      "name": "Pk",
+      "public": true,
+      "type": "array",
+      "components": {
+        "size": 2,
+        "type": "field"
+      }
+    },
+    {
+      "name": "random",
+      "public": false,
+      "type": "field"
     }
   ],
   "outputs": [
     {
-      "type": "u32"
+      "type": "bool"
     }
   ]
 }

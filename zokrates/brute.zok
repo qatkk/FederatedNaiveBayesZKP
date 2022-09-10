@@ -1,0 +1,29 @@
+import "ecc/edwardsAdd" as add
+import "ecc/edwardsNegate" as neg
+import "utils/pack/bool/nonStrictUnpack256" as unpack256
+from "ecc/babyjubjubParams" import BABYJUBJUB_PARAMS
+import "ecc/edwardsScalarMult" as multiply
+
+
+/// Arguments:
+///    C: Curve point. random.PublicKey + M.
+///    s: Field element. Private key(secret in field).
+///    context: Curve parameters (including generator G) used to create keypair.
+///    rG: totalVotesR. random multiply generator G. (X)
+///    M: Curve point. Decrypted Message
+///
+/// Returns:
+///     Return true for correct decryption, false otherwise.
+
+def main(field[2] M, field m) -> (bool):
+    // load BabyJubJub context
+	field[2] G = [BABYJUBJUB_PARAMS.Gu, BABYJUBJUB_PARAMS.Gv]
+    bool[256] mBits = unpack256(m)
+
+    // correct decryption
+    field[2] Mprime = multiply(mBits, G, BABYJUBJUB_PARAMS)
+
+    // check decrypted Message is equal with input Message
+    bool out = if M[0] == Mprime[0] && M[1] == Mprime[1] then true else false fi
+
+    return out

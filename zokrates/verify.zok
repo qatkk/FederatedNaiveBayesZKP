@@ -1,0 +1,17 @@
+from "./decrypt" import main as decrypt
+from "./brute" import main as brute
+
+/*
+* N -> Total number of bids
+*/
+def main<D>(private field[D][2] C, field[D][2] R, field[2] Pk, private field[D][2] M, private field[D] m, private field random) -> bool:
+	bool out = true
+	field[2] random_point = [0, 0]
+	for u32 bid in 0..D do
+		// check true decryption
+		out = out && (decrypt(C[bid],R[bid], Pk,M[bid],random))
+		// check if voter's vote is valid
+		out = out && (brute(M[bid],m[bid]))
+	endfor
+	return out
+
