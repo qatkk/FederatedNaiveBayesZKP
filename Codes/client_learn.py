@@ -19,7 +19,7 @@ test = 0.2 * total_value
 number_of_agents = 5
 
 
-batch_size = 100
+batch_size = 1500
 data_size_threshold = batch_size * 0.2
 train_data = values[0:int(batch_size), : ]
 train_label = lables[0:int(batch_size)]

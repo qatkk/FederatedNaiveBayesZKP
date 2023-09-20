@@ -1,0 +1,131 @@
+{
+  "inputs": [
+    {
+      "name": "mean_R_x",
+      "public": true,
+      "type": "array",
+      "components": {
+        "size": 3,
+        "type": "field"
+      }
+    },
+    {
+      "name": "mean_R_y",
+      "public": false,
+      "type": "array",
+      "components": {
+        "size": 3,
+        "type": "field"
+      }
+    },
+    {
+      "name": "mean_C_x",
+      "public": true,
+      "type": "array",
+      "components": {
+        "size": 3,
+        "type": "field"
+      }
+    },
+    {
+      "name": "mean_C_y",
+      "public": false,
+      "type": "array",
+      "components": {
+        "size": 3,
+        "type": "field"
+      }
+    },
+    {
+      "name": "mean_C_prime_x",
+      "public": true,
+      "type": "array",
+      "components": {
+        "size": 3,
+        "type": "field"
+      }
+    },
+    {
+      "name": "mean_C_prime_y",
+      "public": false,
+      "type": "array",
+      "components": {
+        "size": 3,
+        "type": "field"
+      }
+    },
+    {
+      "name": "var_R_x",
+      "public": true,
+      "type": "array",
+      "components": {
+        "size": 3,
+        "type": "field"
+      }
+    },
+    {
+      "name": "var_R_y",
+      "public": false,
+      "type": "array",
+      "components": {
+        "size": 3,
+        "type": "field"
+      }
+    },
+    {
+      "name": "var_C_x",
+      "public": true,
+      "type": "array",
+      "components": {
+        "size": 3,
+        "type": "field"
+      }
+    },
+    {
+      "name": "var_C_y",
+      "public": false,
+      "type": "array",
+      "components": {
+        "size": 3,
+        "type": "field"
+      }
+    },
+    {
+      "name": "var_C_prime_x",
+      "public": true,
+      "type": "array",
+      "components": {
+        "size": 3,
+        "type": "field"
+      }
+    },
+    {
+      "name": "var_C_prime_y",
+      "public": false,
+      "type": "array",
+      "components": {
+        "size": 3,
+        "type": "field"
+      }
+    },
+    {
+      "name": "Pk",
+      "public": true,
+      "type": "array",
+      "components": {
+        "size": 2,
+        "type": "field"
+      }
+    },
+    {
+      "name": "secret_key",
+      "public": false,
+      "type": "field"
+    }
+  ],
+  "outputs": [
+    {
+      "type": "bool"
+    }
+  ]
+}

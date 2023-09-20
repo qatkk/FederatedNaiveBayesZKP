@@ -20,12 +20,13 @@ def main(field[2] C, field[2] R,  field[2] public_key, field[2] M, field random)
     bool[256] randBits = unpack256(random)
 
     // correct decryption
+    field[2] ptExp1 = multiply(randBits, G, BABYJUBJUB_PARAMS)
     field[2] ptExp2 = multiply(randBits, public_key, BABYJUBJUB_PARAMS)
     field[2] Mes = add(C, neg(ptExp2), BABYJUBJUB_PARAMS)
 
     // check decrypted Message is equal with input Message
     bool out = if M[0] == Mes[0] && M[1] == Mes[1] then true else false fi
-    out = out && if R[0] == ptExp2[0] && R[1] == ptExp2[1] then true else false fi
+    out = out && if R[0] == ptExp1[0] && R[1] == ptExp1[1] then true else false fi
 
     return out
 //    return ptExp2

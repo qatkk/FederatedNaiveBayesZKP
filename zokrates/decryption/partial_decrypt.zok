@@ -1,0 +1,27 @@
+import "ecc/edwardsAdd" as add
+import "ecc/edwardsNegate" as neg
+import "ecc/edwardsScalarMult" as multiply
+import "utils/pack/bool/nonStrictUnpack256" as unpack256
+from "ecc/babyjubjubParams" import BABYJUBJUB_PARAMS
+
+/// Arguments:
+///    C: Curve point. random.PublicKey + M.
+///    s: Field element. Private key(secret in field).
+///    context: Curve parameters (including generator G) used to create keypair.
+///    ptExp1: Partial extraction
+///    C_computed: The computed partialy decrypted cipher text in zokrates
+/// Returns:
+///     Return true for correct partial decryption, false otherwise.
+
+def main(field[2] C, field[2] C_prime, field[2] R, field secret_key) -> (bool):
+    // load BabyJubJub context
+    field[2] G = [BABYJUBJUB_PARAMS.Gu, BABYJUBJUB_PARAMS.Gv]
+    bool[256] secret_key_bits = unpack256(secret_key)
+
+    // correct partial decryption
+    field[2] ptExp1 = multiply(secret_key_bits, R, BABYJUBJUB_PARAMS)
+    field[2] C_computed = add(C, neg(ptExp1), BABYJUBJUB_PARAMS)
+
+    // check decrypted cipher is equal with input cipher_prime
+    bool out = if C_computed[0] == C_prime[0] && C_computed[1] == C_prime[1] then true else false fi
+    return out

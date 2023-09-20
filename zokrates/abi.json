@@ -5,7 +5,7 @@
       "public": false,
       "type": "array",
       "components": {
-        "size": 5,
+        "size": 15,
         "type": "array",
         "components": {
           "size": 100,
@@ -18,7 +18,7 @@
       "public": false,
       "type": "array",
       "components": {
-        "size": 5,
+        "size": 15,
         "type": "u32"
       }
     },
@@ -27,7 +27,7 @@
       "public": false,
       "type": "array",
       "components": {
-        "size": 5,
+        "size": 15,
         "type": "u32"
       }
     },
@@ -46,7 +46,7 @@
       "public": false,
       "type": "array",
       "components": {
-        "size": 5,
+        "size": 15,
         "type": "array",
         "components": {
           "size": 2,
@@ -55,29 +55,39 @@
       }
     },
     {
-      "name": "mean_R",
+      "name": "mean_R_x",
       "public": true,
       "type": "array",
       "components": {
-        "size": 5,
-        "type": "array",
-        "components": {
-          "size": 2,
-          "type": "field"
-        }
+        "size": 15,
+        "type": "field"
       }
     },
     {
-      "name": "mean_C",
+      "name": "mean_R_y",
+      "public": false,
+      "type": "array",
+      "components": {
+        "size": 15,
+        "type": "field"
+      }
+    },
+    {
+      "name": "mean_C_x",
       "public": true,
       "type": "array",
       "components": {
-        "size": 5,
-        "type": "array",
-        "components": {
-          "size": 2,
-          "type": "field"
-        }
+        "size": 15,
+        "type": "field"
+      }
+    },
+    {
+      "name": "mean_C_y",
+      "public": false,
+      "type": "array",
+      "components": {
+        "size": 15,
+        "type": "field"
       }
     },
     {
@@ -85,7 +95,7 @@
       "public": false,
       "type": "array",
       "components": {
-        "size": 5,
+        "size": 15,
         "type": "array",
         "components": {
           "size": 2,
@@ -94,29 +104,39 @@
       }
     },
     {
-      "name": "var_R",
+      "name": "var_R_x",
       "public": true,
       "type": "array",
       "components": {
-        "size": 5,
-        "type": "array",
-        "components": {
-          "size": 2,
-          "type": "field"
-        }
+        "size": 15,
+        "type": "field"
       }
     },
     {
-      "name": "var_C",
+      "name": "var_R_y",
+      "public": false,
+      "type": "array",
+      "components": {
+        "size": 15,
+        "type": "field"
+      }
+    },
+    {
+      "name": "var_C_x",
       "public": true,
       "type": "array",
       "components": {
-        "size": 5,
-        "type": "array",
-        "components": {
-          "size": 2,
-          "type": "field"
-        }
+        "size": 15,
+        "type": "field"
+      }
+    },
+    {
+      "name": "var_C_y",
+      "public": false,
+      "type": "array",
+      "components": {
+        "size": 15,
+        "type": "field"
       }
     },
     {

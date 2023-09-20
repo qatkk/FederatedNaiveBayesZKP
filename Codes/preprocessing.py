@@ -9,8 +9,7 @@ compile = subprocess.run(['mkdir ./data'], stdout=subprocess.PIPE, shell=True, t
 file = open("./number_of_features.txt")
 temp = file.read()
 file.close()
-number_of_features = (int(temp)//5) -1 
-
+number_of_features = int(temp)
 for client_id in range(4):
     data = pd.read_csv(f"./DataSets/14107121/Client{client_id+1}.csv", delimiter=",")
     headers = data.columns
@@ -28,8 +27,8 @@ for client_id in range(4):
     data = data [2:len(data)]
     temp = np.concatenate((data, accelerated[2:len(accelerated), None], accelerated[2:len(accelerated), None]), axis = 1 )
     data = temp
-    for feature in range(number_of_features):
-        data = np.concatenate((data, temp), axis = 1 )
+    for feature in range(len(data[1, :]), number_of_features):
+        data = np.concatenate((data, accelerated[2:len(accelerated), None]), axis = 1 )
     data = data + 100 
     client = pd.DataFrame(np.concatenate((data, lables[2:len(lables), None]), axis = 1)) 
     client.to_csv(f"./data/client{client_id+1}.csv", index= False, sep = ",", header= False)

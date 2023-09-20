@@ -34,11 +34,12 @@ def naivebayes<D, N>( u32[D][N] data, u32[D] mu, u32[D] sigma, u32 accuracy, u32
     return out
 
 
-def main(private u32[5][100] data, private u32[5] mu, private u32[5] sigma, private u32 dataPoints, u32 accuracy, private field[5][2] mean_M, field[5][2] mean_R, field[5][2] mean_C, private field[5][2] var_M, field[5][2] var_R, field[5][2] var_C, field[2] Pk, private field random) -> bool:
+def main(private u32[15][100] data, private u32[15] mu, private u32[15] sigma, private u32 dataPoints, u32 accuracy, private field[15][2] mean_M, field[15] mean_R_x, private field[15] mean_R_y, field[15] mean_C_x, private field[15] mean_C_y, private field[15][2] var_M, field[15] var_R_x, private field[15] var_R_y, field[15] var_C_x, private field[15] var_C_y, field[2] Pk, private field random) -> bool :
     bool out = true
-    field[5] mu_in_field = u32_array_to_field(mu)
-    field[5] sigma_in_field = u32_array_to_field(sigma)
-    out = out && naivebayes::<5,100>(data, mu, sigma, accuracy, dataPoints)
-    out = out && encryption_check::<5> (mean_C, mean_R, Pk, mean_M, mu_in_field, random)
-    out = out && encryption_check::<5> (var_C, var_R, Pk, var_M, sigma_in_field, random)
+    field[15] mu_in_field = u32_array_to_field(mu)
+    field[15] sigma_in_field = u32_array_to_field(sigma)
+    out = out && naivebayes::<15,100>(data, mu, sigma, accuracy, dataPoints)
+    out = out && encryption_check::<15> ([mean_C_x, mean_C_y], [mean_R_x, mean_R_y], Pk, mean_M, mu_in_field, random)
+    out = out && encryption_check::<15> ([var_C_x, var_C_y], [var_R_x, var_R_y], Pk, var_M, sigma_in_field, random)
+    assert(out)
     return out

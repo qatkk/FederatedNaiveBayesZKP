@@ -15,6 +15,7 @@ file = open("./number_of_features.txt")
 number_of_features  = int(file.read())
 file.close()
 
+print (number_of_features)
 def train_on_class(label, batch_size, submit_number, zokrates_input_numbers, values):
         train_data_split = values[submit_number*batch_size : (submit_number+1)*batch_size, :]
         vars = np.var(train_data_split, axis = 0)
@@ -32,6 +33,7 @@ def train_on_class(label, batch_size, submit_number, zokrates_input_numbers, val
             data_output = np.concatenate((train_data_split, means_duplicated), axis = 0)
         else : 
             data_output = train_data_split
+
         output = data_output.astype(int)
         output_mean = means.astype(int)
         output_var = vars.astype(int)
@@ -52,7 +54,12 @@ def test(label) :
     lables = values[:, len(values.T)-1]
     values = values[:, 0:len(values.T) - 1]
     output =  train_on_class(label, batch_size = batch_size, submit_number= 0 , zokrates_input_numbers = batch_size,  values= values)
+    
 
+    with open("check.txt", 'w') as file:
+        for row in output["data"].T:
+            print(*row, end = ' ', file = file)
+    file.close()
 
     with open('data.txt', 'w') as file:
         for row in output["data"].T:
