@@ -3,7 +3,7 @@ import "./BJJ.sol";
 import "./verifier.sol" ;
 
 contract FLSC {
-    bool public verification_status = false; 
+    bool public verification_status ; 
     uint32 public number_of_features; 
     uint32 public number_of_entities; 
     uint32 public decryption_rounds = 0; 
@@ -57,26 +57,28 @@ contract FLSC {
     }
     function submit_update(uint[2] memory a, uint[2][2] memory b, uint[2] memory c, uint256 acccuracy, uint256[][] memory _mu_R, uint256 [][] memory _mu_C , uint256[][] memory vars_R, uint256[][] memory vars_C, string memory class) public {
         // require((_mu_R.length == _mu_C.length  ) &&(_mu_R.length == vars_R.length)&& (_mu_R.length == vars_C.length) &&(_mu_R.length == number_of_features), "Incorrect inputs");
-        uint256[64] memory input; 
+        uint256[24] memory input; 
         MVSC.Proof  memory proof;
-        uint[2] memory _temp_point ;
+        uint[2] memory _temp_point;
         input[0] = acccuracy; 
         proof =  MVSC.Proof(Pairing.G1Point(a[0],a[1]),Pairing.G2Point(b[0],b[1]),Pairing.G1Point(c[0],c[1]));
+        uint32 index; 
         for (uint32 input_ = 0; input_ < 4; input_++ ) {
             for (uint32 feature = 0; feature< number_of_features; feature++) { 
+                 index = number_of_features * input_  + feature + 1 ;
                  if(input_ == 0 )
-                    input[number_of_features * input_  + feature + 1 ] = (_mu_R[0][feature]);
+                    input[number_of_features * input_  + feature + 1] = (_mu_R[0][feature]);
                  else if(input_ == 1 )
-                    input[number_of_features * input_  + feature + 1 ] = (_mu_C[0][feature]);
+                    input[number_of_features * input_  + feature + 1] = (_mu_C[0][feature]);
                  else if(input_ == 2 )
-                    input[number_of_features * input_  + feature + 1 ] = (vars_R[0][feature]);
+                    input[number_of_features * input_  + feature + 1] = (vars_R[0][feature]);
                  else if(input_ == 3 )
-                    input[number_of_features * input_  + feature + 1 ] = (vars_C[0][feature]);
+                    input[number_of_features * input_  + feature + 1] = (vars_C[0][feature]);
             }
         }
-        input[61] = public_key[0];
-        input[62] = public_key[1];
-        input[63] = uint256(1);
+        input[index + 1] = public_key[0];
+        input[index + 2] = public_key[1];
+        input[index + 3] = uint256(1);
         verification_status = ModelVerifier_inst.verifyTx(proof, input);
         if (class_submitted[class] == false) {
             mu[class] = _mu_C; 
@@ -114,26 +116,28 @@ contract FLSC {
         // bool verification_status = true; 
         proof =  DVSC.Proof(Pairing.G1Point(a[0],a[1]),Pairing.G2Point(b[0],b[1]),Pairing.G1Point(c[0],c[1]));
         uint[93] memory input; 
+        uint32 index; 
         // require((_mu_R.length == _mu_C.length  ) &&(_mu_R.length == vars_R.length)&& (_mu_R.length == vars_C.length) &&(_mu_R.length == number_of_features), "Incorrect inputs");
         for (uint32 input_ = 0; input_ < 6; input_++ ) {
             for (uint32 feature = 0; feature < number_of_features; feature++) { 
+                    index = number_of_features * input_  + feature;
                     if(input_ == 0 )
-                        input[number_of_features * input_  + feature] = (_R_mean[feature]);
+                        input[index] = (_R_mean[feature]);
                     else if(input_ == 1 )
-                        input[number_of_features * input_  + feature] = (_C_mean[feature]);
+                        input[index] = (_C_mean[feature]);
                     else if(input_ == 2 )
-                        input[number_of_features * input_  + feature] = (_C_mean_prime[feature]);
+                        input[index] = (_C_mean_prime[feature]);
                     else if(input_ == 3 )
-                        input[number_of_features * input_  + feature] = (_R_var[feature]);
+                        input[index] = (_R_var[feature]);
                     else if(input_ == 4 )
-                        input[number_of_features * input_  + feature] = (_C_var[feature]);
+                        input[index] = (_C_var[feature]);
                     else if(input_ == 5 )
-                        input[number_of_features * input_  + feature] = (_C_var_prime[feature]);
+                        input[index] = (_C_var_prime[feature]);
             }
         }
-        input[90] = _Pk[0];
-        input[91] = _Pk[1];
-        input[92] = uint256(1);
+        input[index + 1] = _Pk[0];
+        input[index + 2] = _Pk[1];
+        input[index + 3] = uint256(1);
         verification_status = DecryptVerifier_inst.verifyTx(proof, input);
         if (verification_status) entity_participation[msg.sender] ++; 
     }

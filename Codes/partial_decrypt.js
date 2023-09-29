@@ -1,21 +1,20 @@
 const fs = require('fs');
 const {BabyJubPoint, G} = require("./BabyJubPoint");
-const { string, mean } = require('mathjs');
+const { string } = require('mathjs');
 
 
 var data; 
-const number_of_model_owners = 3; 
 const current_decryptor_id = 2; 
 
 
 let cipher_point = new BabyJubPoint(); 
 let random_point = new BabyJubPoint(); 
-let output_file_dir = './decryption_output.txt'; 
-let sc_input_file_dir = './sc_decryption_input.txt';
+let output_file_dir = './output/decryption_output.txt'; 
+let sc_input_file_dir = './output/sc_decryption_input.txt';
 
-let number_of_attributes = parseInt(fs.readFileSync("./number_of_features.txt", "utf8"));
+let number_of_attributes = parseInt(fs.readFileSync("./configs/number_of_features.txt", "utf8"));
 try {
-    data = fs.readFileSync("encrypted.json");
+    data = fs.readFileSync("./output/encrypted.json");
   } catch (error) {
     console.error(error);
     throw error;
@@ -27,7 +26,7 @@ let mean_cipher_primes = Array(2).fill().map(() => Array(encrypted.mean_ciphers.
 let mean_random_points = Array(2).fill().map(() => Array(encrypted.mean_ciphers.split(",").length/2).fill(0));
 let mean_cipher_points =  Array(2).fill().map(() => Array(encrypted.mean_ciphers.split(",").length/2).fill(0));
 try {
-  data = fs.readFileSync("secret_keys.txt", "utf8");
+  data = fs.readFileSync("output/secret_keys.txt", "utf8");
 } catch (error) {
   console.error(error);
   throw error;

@@ -1,30 +1,25 @@
 const { encrypt } = require("./encrypt");
 const fs = require('fs');
 const crypto = require("crypto");
-const {BabyJubPoint, G, Fr} = require("./BabyJubPoint");
+const {BabyJubPoint, Fr} = require("./BabyJubPoint");
 const utils = require("ffjavascript").utils;
 
 
-public_key_temp = fs.readFileSync("./public_key.txt", "utf8"); 
+public_key_temp = fs.readFileSync("./output/public_key.txt", "utf8"); 
 public_key_temp = public_key_temp.split(" "); 
+let data_dir = "./output/data.txt";
+let sc_input_file_dir = "./output/sc_input.txt";
+
 public_key = new BabyJubPoint(public_key_temp[0], public_key_temp[1]); 
 
-let number_of_attributes = parseInt(fs.readFileSync("./number_of_features.txt", "utf8"));
+let number_of_attributes = parseInt(fs.readFileSync("./configs/number_of_features.txt", "utf8"));
 
-data =  fs.readFileSync('./data.txt','utf8');
+data =  fs.readFileSync(data_dir,'utf8');
 data = data.split(" "); 
-let sc_input_file_dir = "./sc_input.txt"
-// The actual data 
 let vars = data.slice(data.length - (3 + number_of_attributes), data.length - 3);
 let means = data.slice(data.length - (3 + number_of_attributes) - number_of_attributes, data.length - 3 -number_of_attributes);
 
-// Random generated 
-// let vars = Array(number_of_attributes).fill(0);
-// let means = Array(number_of_attributes).fill(0);
-// for ( let i = 0; i<number_of_attributes; i++ ){
-//     vars[i] = utils.leBuff2int(crypto.randomBytes(32));
-//     means[i] = utils.leBuff2int(crypto.randomBytes(32));
-// }
+
 
 const random_value = new Fr(BigInt(utils.leBuff2int(crypto.randomBytes(32))));
 let message_mean = []; 
@@ -58,29 +53,29 @@ for (i = 0 ; i< number_of_attributes * 2; i++ ) {
 }
 
 
-fs.appendFileSync('./data.txt', message_mean.join(" ") + " ",'utf8');
+fs.appendFileSync(data_dir, message_mean.join(" ") + " ",'utf8');
 
-fs.appendFileSync('./data.txt', random_mean[0].join(" ") + " ",'utf8');
-fs.appendFileSync('./data.txt', random_mean[1].join(" ") + " ",'utf8');
+fs.appendFileSync(data_dir, random_mean[0].join(" ") + " ",'utf8');
+fs.appendFileSync(data_dir, random_mean[1].join(" ") + " ",'utf8');
 
-fs.appendFileSync('./data.txt', cipher_mean[0].join(" ") + " ",'utf8');
-fs.appendFileSync('./data.txt', cipher_mean[1].join(" ") + " ",'utf8');
+fs.appendFileSync(data_dir, cipher_mean[0].join(" ") + " ",'utf8');
+fs.appendFileSync(data_dir, cipher_mean[1].join(" ") + " ",'utf8');
 
-fs.appendFileSync('./data.txt', message_var.join(" ") + " ",'utf8');
-fs.appendFileSync('./data.txt', random_var[0].join(" ") + " ",'utf8');
-fs.appendFileSync('./data.txt', random_var[1].join(" ") + " ",'utf8');
+fs.appendFileSync(data_dir, message_var.join(" ") + " ",'utf8');
+fs.appendFileSync(data_dir, random_var[0].join(" ") + " ",'utf8');
+fs.appendFileSync(data_dir, random_var[1].join(" ") + " ",'utf8');
 
-fs.appendFileSync('./data.txt', cipher_var[0].join(" ") + " ",'utf8');
-fs.appendFileSync('./data.txt', cipher_var[1].join(" ") + " ",'utf8');
+fs.appendFileSync(data_dir, cipher_var[0].join(" ") + " ",'utf8');
+fs.appendFileSync(data_dir, cipher_var[1].join(" ") + " ",'utf8');
 
-fs.appendFileSync('./data.txt', public_key.x + " " + public_key.y + " ",'utf8');
-fs.appendFileSync('./data.txt', random_value.n.toString(),'utf8');
-
-
+fs.appendFileSync(data_dir, public_key.x + " " + public_key.y + " ",'utf8');
+fs.appendFileSync(data_dir, random_value.n.toString(),'utf8');
 
 
 
-fs.appendFileSync(sc_input_file_dir, " [ [ \"" + random_mean[0].join("\", \"")+ " ",'utf8');
+
+
+fs.appendFileSync(sc_input_file_dir, ", [ [ \"" + random_mean[0].join("\", \"")+ " ",'utf8');
 fs.appendFileSync(sc_input_file_dir, "\"], \n [ \"" + random_mean[1].join("\", \"") + " ",'utf8');
 
 fs.appendFileSync(sc_input_file_dir, "\"] ], \n [ [ \"" + cipher_mean[0].join("\", \"") + " ",'utf8');
@@ -90,9 +85,8 @@ fs.appendFileSync(sc_input_file_dir, "\"] ], \n [ [ \" " + random_var[0].join("\
 fs.appendFileSync(sc_input_file_dir, "\"], \n [ \" " + random_var[1].join("\", \"") + " ",'utf8');
 
 fs.appendFileSync(sc_input_file_dir, "\"] ], \n [ [ \" " + cipher_var[0].join("\", \"") + " ",'utf8');
-fs.appendFileSync(sc_input_file_dir, "\"], \n [ \" " + cipher_var[1].join("\", \"") + " ",'utf8');
+fs.appendFileSync(sc_input_file_dir, "\"], \n [ \" " + cipher_var[1].join("\", \"") + " \" ]  ]",'utf8');
 
-fs.appendFileSync(sc_input_file_dir, "\" ]  ]",'utf8');
 
 
 
@@ -113,30 +107,19 @@ var plain_text = {
 
 encrypted_txt = JSON.stringify(encrypted);
 
-// writing the JSON string content to a file
-fs.writeFile("encrypted.json", encrypted_txt, (error) => {
-  // throwing the error
-  // in case of a writing problem
+fs.writeFile("./output/encrypted.json", encrypted_txt, (error) => {
   if (error) {
-    // logging the error
     console.error(error);
-
     throw error;
     }
-    console.log("data.json written correctly");
 });
 
 plain_text = JSON.stringify(plain_text);
 
-// writing the JSON string content to a file
-fs.writeFile("feature_values.json", plain_text, (error) => {
-  // throwing the error
-  // in case of a writing problem
+fs.writeFile("./output/feature_values.json", plain_text, (error) => {
   if (error) {
-    // logging the error
     console.error(error);
 
     throw error;
     }
-    console.log("features written correctly");
 });

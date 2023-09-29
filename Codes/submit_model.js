@@ -1,23 +1,19 @@
-const {BabyJubPoint, G, Fr, Frr, randFr, subOrder, order} = require("./BabyJubPoint");
 const utils = require("ffjavascript").utils;
 const fs = require("fs");
 const web3 = require("web3-utils"); 
-const math = require("math");
 const ethers = require('ethers');
-const {exec}  = require('child_process');
 const provider = new ethers.providers.InfuraProvider("goerli", "64f2b92ea98d47b8a584976f7f051d08");
-const contractAddr =  fs.readFileSync('./ContractAddr.txt','utf8');
+const contract_addr =  fs.readFileSync('./configs/contract_addr.txt','utf8');
 const { promisify } = require('util');
 const sleep = promisify(setTimeout);
-const contractABI = fs.readFileSync('./ABI.txt','utf8');
-let privateKey = "5f22a80a0824462fc1ed3b79306696b79dd3ed5dbb9a69287f1aa2cddb4413ef";
-let wallet = new ethers.Wallet(privateKey, provider);
-const contract = new ethers.Contract(contractAddr, contractABI, wallet);
-let number_of_attributes = parseInt(fs.readFileSync('./number_of_features.txt','utf8'));
+const contract_ABI = fs.readFileSync('./ABI.txt','utf8');
+let private_key = "5f22a80a0824462fc1ed3b79306696b79dd3ed5dbb9a69287f1aa2cddb4413ef";
+let wallet = new ethers.Wallet(private_key, provider);
+const contract = new ethers.Contract(contract_addr, contract_ABI, wallet);
+let number_of_attributes = parseInt(fs.readFileSync('./confifs/number_of_features.txt','utf8'));
 
 
-public_key =  fs.readFileSync('./pubkey_compact.txt','utf8');
-// public_key = public_key.split(" ");
+public_key =  fs.readFileSync('./output/pubkey_compact.txt','utf8');
 console.log(public_key);
 async function just_test() {
 try {
@@ -32,7 +28,7 @@ try {
 }
 
 just_test().then(async ()=>{
-    input = fs.readFileSync('./sc_input.txt','utf8');
+    input = fs.readFileSync('./output/sc_input.txt','utf8');
     input = input.split(' ');
     console.log(input.length);
     sleep(20000);

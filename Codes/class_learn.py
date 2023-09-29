@@ -1,17 +1,17 @@
 from math import floor
-from re import L, sub
-from unittest import result
 import numpy as np
 import pandas as pd
 from matplotlib import backend_tools, pyplot as plt
-from scipy.stats import norm 
+
 file = open("class.txt", "r")
 classes = file.read()
 classes = classes.split(",")
 file.close()
 
-submit_count = 1
-file = open("./number_of_features.txt")
+data_file_dir = "./output/data.txt"
+sc_input_file_dir = "./output/sc_input.txt"
+
+file = open("./configs/number_of_features.txt")
 number_of_features  = int(file.read())
 file.close()
 
@@ -46,7 +46,7 @@ def train_on_class(label, batch_size, submit_number, zokrates_input_numbers, val
 
 
 def test(label) :
-    data = pd.read_csv(f"./test_data/{label}.csv", delimiter=",")
+    data = pd.read_csv(f"./DataSets/CategorizedData/{label}.csv", delimiter=",")
     data = data.to_numpy()
     np.random.shuffle(data)
     values = data
@@ -56,12 +56,9 @@ def test(label) :
     output =  train_on_class(label, batch_size = batch_size, submit_number= 0 , zokrates_input_numbers = batch_size,  values= values)
     
 
-    with open("check.txt", 'w') as file:
-        for row in output["data"].T:
-            print(*row, end = ' ', file = file)
-    file.close()
 
-    with open('data.txt', 'w') as file:
+
+    with open(data_file_dir, 'w') as file:
         for row in output["data"].T:
             print(*row, end = ' ', file = file)
         print(*output["means"], end = ' ', file = file)
@@ -70,12 +67,12 @@ def test(label) :
         print(output["accuracy"], end = ' ', file = file)
     file.close()
 
-    with open('sc_input.txt', 'w') as file:
+    with open(sc_input_file_dir, 'w') as file:
         print(output["accuracy"], end = ' ', file = file)
     file.close()
 
     with open('class.txt', 'w') as file:
-        print(label, file= file )
+        print(label, file = file )
     file.close()
 
 label = "Jogging"

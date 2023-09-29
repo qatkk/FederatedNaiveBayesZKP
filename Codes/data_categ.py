@@ -6,11 +6,11 @@ import subprocess
 
 
 test_split_ratio = 0.9
-compile  = subprocess.run(['rm -rf ./test_data'], stdout=subprocess.PIPE, shell=True, text=True)
-compile = subprocess.run(['mkdir ./test_data'], stdout=subprocess.PIPE, shell=True, text=True)
+compile  = subprocess.run(['rm -rf ./DataSets/CategorizedData'], stdout=subprocess.PIPE, shell=True, text=True)
+compile = subprocess.run(['mkdir ./DataSets/CategorizedData'], stdout=subprocess.PIPE, shell=True, text=True)
 
 for client_id in range(4)  :
-    compile = subprocess.run([f'mkdir ./test_data/client{client_id+1}'], stdout=subprocess.PIPE, shell=True, text=True)
+    compile = subprocess.run([f'mkdir ./DataSets/CategorizedData/client{client_id+1}'], stdout=subprocess.PIPE, shell=True, text=True)
     try:
         file = open("class.txt", "r")
         submitted_classes = file.read()
@@ -19,7 +19,7 @@ for client_id in range(4)  :
     except: 
         submitted_classes = []
 
-    data = pd.read_csv(f"./data/client{client_id+1}.csv", delimiter=",")
+    data = pd.read_csv(f"./DataSets/PreprocessedData/client{client_id+1}.csv", delimiter=",")
     headers = data.columns
     data = data.to_numpy()
     temp = data.T
@@ -40,7 +40,7 @@ for client_id in range(4)  :
         test_data = temp.T[index[int(test_split_ratio*len(index)) : len(index)]]
         seperated = pd.DataFrame(data)
         test = pd.DataFrame(test_data)
-        seperated.to_csv(f"./test_data/{label}.csv", mode = 'a', sep = ",", index= False, header= False)
-        test.to_csv(f"./test_data/test.csv", mode = 'a', sep = ",", index= False, header= False)
+        seperated.to_csv(f"./DataSets/CategorizedData/{label}.csv", mode = 'a', sep = ",", index= False, header= False)
+        test.to_csv(f"./DataSets/CategorizedData/test.csv", mode = 'a', sep = ",", index= False, header= False)
 
          
