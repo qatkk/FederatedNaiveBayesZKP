@@ -67,9 +67,9 @@ def test(label) :
         print(output["accuracy"], end = ' ', file = file)
     file.close()
 
-    with open(sc_input_file_dir, 'w') as file:
-        print(output["accuracy"], end = ' ', file = file)
-    file.close()
+    # with open(sc_input_file_dir, 'w') as file:
+    #     print("\"accuracy\": " + output["accuracy"], end = ' ', file = file)
+    # file.close()
 
     with open('class.txt', 'w') as file:
         print(label, file = file )

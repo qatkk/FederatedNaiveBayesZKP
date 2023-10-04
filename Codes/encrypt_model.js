@@ -75,51 +75,57 @@ fs.appendFileSync(data_dir, random_value.n.toString(),'utf8');
 
 
 
-fs.appendFileSync(sc_input_file_dir, ", [ [ \"" + random_mean[0].join("\", \"")+ " ",'utf8');
-fs.appendFileSync(sc_input_file_dir, "\"], \n [ \"" + random_mean[1].join("\", \"") + " ",'utf8');
-
-fs.appendFileSync(sc_input_file_dir, "\"] ], \n [ [ \"" + cipher_mean[0].join("\", \"") + " ",'utf8');
-fs.appendFileSync(sc_input_file_dir, "\"], \n [ \"" + cipher_mean[1].join("\", \"") + " ",'utf8');
-
-fs.appendFileSync(sc_input_file_dir, "\"] ], \n [ [ \" " + random_var[0].join("\", \"") + " ",'utf8');
-fs.appendFileSync(sc_input_file_dir, "\"], \n [ \" " + random_var[1].join("\", \"") + " ",'utf8');
-
-fs.appendFileSync(sc_input_file_dir, "\"] ], \n [ [ \" " + cipher_var[0].join("\", \"") + " ",'utf8');
-fs.appendFileSync(sc_input_file_dir, "\"], \n [ \" " + cipher_var[1].join("\", \"") + " \" ]  ]",'utf8');
-
-
-
-
-var encrypted = {
-    "mean_message": message_mean.join(),
-    "mean_rendoms": random_mean.join(), 
-    "mean_ciphers": cipher_mean.join(),
-    "var_message": message_var.join(),
-    "var_randoms": random_var.join(), 
-    "var_ciphers": cipher_var.join()
-}; 
-
-var plain_text = {
-    "means": means.join(), 
-    "vars": vars.join()
+var sc_input = {
+    "random_mean_x": random_mean[0].join(" "), 
+    "random_mean_y": random_mean[1].join(" "), 
+    "cipher_mean_x": cipher_mean[0].join(" "), 
+    "cipher_mean_y": cipher_mean[1].join(" "), 
+    "random_var_x": random_var[0].join(" "), 
+    "random_var_y": random_var[1].join(" "), 
+    "cipher_var_x": cipher_var[0].join(" "), 
+    "cipher_var_y": cipher_var[1].join(" ")
 };
 
+sc_input_json = JSON.stringify(sc_input);
 
-encrypted_txt = JSON.stringify(encrypted);
-
-fs.writeFile("./output/encrypted.json", encrypted_txt, (error) => {
+fs.writeFileSync(sc_input_file_dir, sc_input_json, (error) => {
   if (error) {
     console.error(error);
     throw error;
     }
 });
 
-plain_text = JSON.stringify(plain_text);
 
-fs.writeFile("./output/feature_values.json", plain_text, (error) => {
-  if (error) {
-    console.error(error);
+// var encrypted = {
+//     "mean_message": message_mean.join(),
+//     "mean_rendoms": random_mean.join(), 
+//     "mean_ciphers": cipher_mean.join(),
+//     "var_message": message_var.join(),
+//     "var_randoms": random_var.join(), 
+//     "var_ciphers": cipher_var.join()
+// }; 
 
-    throw error;
-    }
-});
+// var plain_text = {
+//     "means": means.join(), 
+//     "vars": vars.join()
+// };
+
+
+// encrypted_txt = JSON.stringify(encrypted);
+
+// fs.writeFile("./output/encrypted.json", encrypted_txt, (error) => {
+//   if (error) {
+//     console.error(error);
+//     throw error;
+//     }
+// });
+
+// plain_text = JSON.stringify(plain_text);
+
+// fs.writeFile("./output/feature_values.json", plain_text, (error) => {
+//   if (error) {
+//     console.error(error);
+
+//     throw error;
+//     }
+// });

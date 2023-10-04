@@ -10,6 +10,16 @@
 				"internalType": "uint32",
 				"name": "_number_of_features",
 				"type": "uint32"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_funding",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_deposit",
+				"type": "uint256"
 			}
 		],
 		"stateMutability": "nonpayable",
@@ -18,24 +28,33 @@
 	{
 		"inputs": [
 			{
-				"internalType": "uint256[5][2]",
-				"name": "_mu",
-				"type": "uint256[5][2]"
-			},
-			{
-				"internalType": "uint256[5][2]",
-				"name": "_varience",
-				"type": "uint256[5][2]"
-			},
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "classes",
+		"outputs": [
 			{
 				"internalType": "string",
-				"name": "class",
+				"name": "",
 				"type": "string"
 			}
 		],
-		"name": "decrypt",
-		"outputs": [],
-		"stateMutability": "nonpayable",
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "decryption_rounds",
+		"outputs": [
+			{
+				"internalType": "uint32",
+				"name": "",
+				"type": "uint32"
+			}
+		],
+		"stateMutability": "view",
 		"type": "function"
 	},
 	{
@@ -75,7 +94,65 @@
 				"type": "uint256"
 			}
 		],
-		"name": "mu",
+		"name": "mu_C",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "mu_R",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "mu_partial_decrypted",
 		"outputs": [
 			{
 				"internalType": "uint256",
@@ -113,65 +190,6 @@
 		"type": "function"
 	},
 	{
-		"inputs": [],
-		"name": "proof",
-		"outputs": [
-			{
-				"components": [
-					{
-						"internalType": "uint256",
-						"name": "X",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "Y",
-						"type": "uint256"
-					}
-				],
-				"internalType": "struct Pairing.G1Point",
-				"name": "a",
-				"type": "tuple"
-			},
-			{
-				"components": [
-					{
-						"internalType": "uint256[2]",
-						"name": "X",
-						"type": "uint256[2]"
-					},
-					{
-						"internalType": "uint256[2]",
-						"name": "Y",
-						"type": "uint256[2]"
-					}
-				],
-				"internalType": "struct Pairing.G2Point",
-				"name": "b",
-				"type": "tuple"
-			},
-			{
-				"components": [
-					{
-						"internalType": "uint256",
-						"name": "X",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "Y",
-						"type": "uint256"
-					}
-				],
-				"internalType": "struct Pairing.G1Point",
-				"name": "c",
-				"type": "tuple"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
 		"inputs": [
 			{
 				"internalType": "uint256",
@@ -188,6 +206,71 @@
 			}
 		],
 		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "start_decryption",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256[2]",
+				"name": "a",
+				"type": "uint256[2]"
+			},
+			{
+				"internalType": "uint256[2][2]",
+				"name": "b",
+				"type": "uint256[2][2]"
+			},
+			{
+				"internalType": "uint256[2]",
+				"name": "c",
+				"type": "uint256[2]"
+			},
+			{
+				"internalType": "uint256[]",
+				"name": "_C_mean",
+				"type": "uint256[]"
+			},
+			{
+				"internalType": "uint256[]",
+				"name": "_C_mean_prime",
+				"type": "uint256[]"
+			},
+			{
+				"internalType": "uint256[]",
+				"name": "_R_mean",
+				"type": "uint256[]"
+			},
+			{
+				"internalType": "uint256[]",
+				"name": "_C_var",
+				"type": "uint256[]"
+			},
+			{
+				"internalType": "uint256[]",
+				"name": "_C_var_prime",
+				"type": "uint256[]"
+			},
+			{
+				"internalType": "uint256[]",
+				"name": "_R_var",
+				"type": "uint256[]"
+			},
+			{
+				"internalType": "uint256[2]",
+				"name": "_Pk",
+				"type": "uint256[2]"
+			}
+		],
+		"name": "submit_decryption",
+		"outputs": [],
+		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
@@ -213,7 +296,7 @@
 		],
 		"name": "submit_pubkey",
 		"outputs": [],
-		"stateMutability": "nonpayable",
+		"stateMutability": "payable",
 		"type": "function"
 	},
 	{
@@ -272,12 +355,22 @@
 	{
 		"inputs": [
 			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			},
+			{
 				"internalType": "uint256",
 				"name": "",
 				"type": "uint256"
 			}
 		],
-		"name": "temp",
+		"name": "varience_C",
 		"outputs": [
 			{
 				"internalType": "uint256",
@@ -306,7 +399,36 @@
 				"type": "uint256"
 			}
 		],
-		"name": "varience",
+		"name": "varience_R",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "varience_partial_decrypted",
 		"outputs": [
 			{
 				"internalType": "uint256",
