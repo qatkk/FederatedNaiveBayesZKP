@@ -17,22 +17,14 @@ const contract = new ethers.Contract(contract_addr, contract_ABI, wallet);
 async function start_decryption() {
 try {
     await contract.start_decryption({gasLimit: 5000000}).then ((tx)=>{
-        console.log(tx.hash);
-        sleep(20000);
+        provider.waitForTransaction(tx.hash); 
+        console.log(tx);
     });
+
 }catch (err){
     console.log(err);
 }
 
 }
 
-start_decryption().then(async ()=>{
-    try {
-        await contract.decryption_rounds({gasLimit: 5000000}).then ((tx)=>{
-            provider.waitForTransaction(tx.hash); 
-            console.log("Decryption round:", tx);
-        });
-    }catch (err){
-        console.log(err);
-    }
-});
+start_decryption();

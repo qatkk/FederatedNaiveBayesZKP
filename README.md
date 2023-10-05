@@ -33,3 +33,26 @@ The Zokrates directory contains zkSNARK circuits and libraries used in the proje
 - `Model_verif`: Subdirectory containing zkSNARK circuits related to model verification for Data Owners (DOs).
 
 This structured organization of the project's components facilitates clarity and ease of navigation, making it straightforward for developers and collaborators to understand and work with the various aspects of the project, including cryptography, smart contracts, and model training.
+
+** Project setup: ** 
+
+- `NodeJS dependencies`: In order to install nodejs dependencies after cloning the repository please run "npm install".
+- `zkSNARK`: In this project we use the ZoKrates toolset. You can find more information about this project at link https://zokrates.github.io/. In order to be able to run ZoKrates codes in this repository please install the 7.14 version of ZoKrates. https://github.com/Zokrates/ZoKrates/releases/tag/0.7.14
+
+** Scheme setup: ** 
+- Inorder to generate the verifier smart contracts for computation verification you need to first setup the zkSNARK circuits provided in "zokrates/" folder. For this cause you have to set the number of features corresponding to your dataset in the main.zok files found in "zokrates/decryption" and "zokrates/model_verif". 
+- Run setup.sh 
+- Copy the content of "smart_contracts/DVSC.sol" and "smart_contracts/MVSC.sol" to "smart_contracts/verifier.sol"as defined "verifier.sol"
+- Change the "input" variable size corresponding to the inputs of verifyTx in each contract in the functions submit_Decryption and submit_model_update in FLSC.sol 
+- Deploy "FLSC.sol" with the "BJJ.sol" and "verifier.sol" in the Remix IDE. 
+- Copy the address of the deployed FLSC in the "codes/configs/contract_addr.txt"
+- Set the number of features in the "codes/configs/number_of_features.txt"
+- Set the number of model owners in the "codes/configs/number_of_entities.txt"
+- Run "codes/submit_pk.sh" in order to submit the public key needed for encryption of the model updates. 
+
+** Model training: ** 
+- In order to test the model update process and training you can run the "codes/model_test.sh" file. This file will train the model and create a proof corresponding to the trained class. When the model update is verified locally then this file will send a transaction to the submit_model_update() function of the FLSC to update the global model. 
+
+
+** Decryption process: ** 
+- In order to test the model update process and training you can run the "codes/decrypt_test.sh" file. This file will obtain the global model and create a proof corresponding to the partial decryption. When the decryption is verified locally then this file will send a transaction to the submit_decryption() function of the FLSC to update the partially decrypted model. 
