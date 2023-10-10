@@ -6,7 +6,7 @@ contract FLSC {
     uint32 public number_of_features; 
     uint32 public number_of_entities; 
     uint32 public decryption_rounds = 0; 
-    string[] public classes; 
+    string[] classes; 
     uint256 funding = 0; 
     uint256 deposit = 0; 
     address[] enitity_address; 
@@ -16,13 +16,14 @@ contract FLSC {
     uint256[2] public  public_key; 
     mapping (address => bool) is_entities_pubkey_submitted; 
     ///// Model parameters during training 
-    mapping (string => uint256[][]) public mu_C;
-    mapping (string => uint256[][]) public varience_C;
-    mapping (string => uint256[][]) public mu_R;
-    mapping (string => uint256[][]) public varience_R;
+    mapping (string => uint256[][])  mu_C;
+    mapping (string => uint256[][])  varience_C;
+    mapping (string => uint256[][])  mu_R;
+    mapping (string => uint256[][])  varience_R;
     ///// Model parameters during decryption 
-    mapping (string => uint256[][]) public mu_partial_decrypted;
-    mapping (string => uint256[][]) public varience_partial_decrypted;
+    mapping (string => uint256[][])  mu_partial_decrypted;
+    mapping (string => uint256[][])  varience_partial_decrypted;
+
     mapping (string => bool) class_submitted;
     mapping (string => uint256) submit_count; 
     mapping (address => bool) is_entity_submitted; 
@@ -58,7 +59,7 @@ contract FLSC {
     }
     function submit_update(uint[2] memory a, uint[2][2] memory b, uint[2] memory c, uint256 acccuracy, uint256[][] memory _mu_R, uint256 [][] memory _mu_C , uint256[][] memory vars_R, uint256[][] memory vars_C, string memory class) public {
         // require((_mu_R.length == _mu_C.length  ) &&(_mu_R.length == vars_R.length)&& (_mu_R.length == vars_C.length) &&(_mu_R.length == number_of_features), "Incorrect inputs");
-        uint256[24] memory input; 
+            uint[44] memory input;
         MVSC.Proof  memory proof;
         uint[2] memory _temp_point;
         input[0] = acccuracy; 
@@ -97,7 +98,7 @@ contract FLSC {
                 _temp_point = update_model(BJJ.toExtended([vars_C[0][i], vars_C[1][i]]), BJJ.toExtended([varience_C[class][0][i], varience_C[class][1][i]]));
                 varience_C[class][0][i] = _temp_point[0];  
                 varience_C[class][1][i] = _temp_point[1];  
-                _temp_point = update_model( BJJ.toExtended([_mu_R[0][i], _mu_R[1][i]]), BJJ.toExtended([mu_R[class][0][i], mu_R[class][1][i]]));
+                _temp_point = update_model(BJJ.toExtended([_mu_R[0][i], _mu_R[1][i]]), BJJ.toExtended([mu_R[class][0][i], mu_R[class][1][i]]));
                 mu_R[class][0][i] = _temp_point[0]; 
                 mu_R[class][1][i] = _temp_point[1]; 
                 _temp_point = update_model(BJJ.toExtended([vars_R[0][i], vars_R[1][i]]), BJJ.toExtended([varience_R[class][0][i], varience_R[class][1][i]]));
@@ -118,7 +119,7 @@ contract FLSC {
     function submit_decryption(uint[2] memory a, uint[2][2] memory b, uint[2] memory c, uint256[] memory _C_mean_prime_x, uint256[] memory _C_mean_prime_y, uint256[] memory _C_var_prime_x, uint256[] memory _C_var_prime_y, uint256[2] memory _Pk, string memory class) public{
         DVSC.Proof memory proof;
         proof =  DVSC.Proof(Pairing.G1Point(a[0],a[1]),Pairing.G2Point(b[0],b[1]),Pairing.G1Point(c[0],c[1]));
-        uint[33] memory input; 
+            uint[63] memory input;
         uint32 index; 
         for (uint32 input_ = 0; input_ < 6; input_++ ) {
             for (uint32 feature = 0; feature < number_of_features; feature++) { 

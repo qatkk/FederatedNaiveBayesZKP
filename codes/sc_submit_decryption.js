@@ -19,7 +19,7 @@ async function submit_model() {
     input = JSON.parse(input);
     proof = JSON.parse(fs.readFileSync('../zokrates/decryption/proof.json','utf8'));
     try {
-            await contract.submit_decryption(proof.proof.a, proof.proof.b, proof.proof.c , input.mean_cipher_prime_x.split(" "), input.mean_cipher_prime_y.split(" "), input.var_cipher_prime_x.split(" "), input.var_cipher_prime_y.split(" "),  [input.public_key_x, input.public_key_y],  "Running", {gasLimit: 30000000}).then ((tx)=>{
+            await contract.submit_decryption(proof.proof.a, proof.proof.b, proof.proof.c , input.mean_cipher_prime_x.split(" "), input.mean_cipher_prime_y.split(" "), input.var_cipher_prime_x.split(" "), input.var_cipher_prime_y.split(" "),  [input.public_key_x, input.public_key_y],  "Running", {gasLimit: 30000000, gasPrice: 5000000000}).then ((tx)=>{
             console.log("Decryption transaction hash:", tx.hash);
             provider.waitForTransaction(tx.hash); 
         });

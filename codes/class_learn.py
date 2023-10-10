@@ -13,6 +13,8 @@ sc_input_file_dir = "./output/sc_input.txt"
 
 file = open("./configs/number_of_features.txt")
 number_of_features  = int(file.read())
+file = open("./configs/batch_size.txt")
+batch_size_input  = int(file.read())
 file.close()
 
 print (number_of_features)
@@ -50,7 +52,7 @@ def test(label) :
     data = data.to_numpy()
     np.random.shuffle(data)
     values = data
-    batch_size = 100
+    batch_size = batch_size_input
     lables = values[:, len(values.T)-1]
     values = values[:, 0:len(values.T) - 1]
     output =  train_on_class(label, batch_size = batch_size, submit_number= 0 , zokrates_input_numbers = batch_size,  values= values)
@@ -67,9 +69,6 @@ def test(label) :
         print(output["accuracy"], end = ' ', file = file)
     file.close()
 
-    # with open(sc_input_file_dir, 'w') as file:
-    #     print("\"accuracy\": " + output["accuracy"], end = ' ', file = file)
-    # file.close()
 
     with open('class.txt', 'w') as file:
         print(label, file = file )

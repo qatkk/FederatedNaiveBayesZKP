@@ -2,6 +2,8 @@ const utils = require("ffjavascript").utils;
 const fs = require("fs");
 const web3 = require("web3-utils"); 
 const ethers = require('ethers');
+// var url = "https://linea-goerli.infura.io/v3/64f2b92ea98d47b8a584976f7f051d08";
+// var provider = new ethers.providers.JsonRpcProvider(url);
 const provider = new ethers.providers.InfuraProvider("goerli", "64f2b92ea98d47b8a584976f7f051d08");
 const contract_addr =  fs.readFileSync('./configs/contract_addr.txt','utf8');
 const { promisify } = require('util');
@@ -16,9 +18,8 @@ const contract = new ethers.Contract(contract_addr, contract_ABI, wallet);
 
 public_key =  fs.readFileSync('./output/pubkey_compact.txt','utf8');
 async function submit_pulic_key() {
-        sleep(10000);
     try {
-        await contract.submit_pubkey(BigInt(public_key.toString()), {gasLimit: 5000000}).then ((tx)=>{
+        await contract.submit_pubkey(BigInt(public_key.toString()), {gasLimit: 30000000, gasPrice: 3000000000}).then ((tx)=>{
             console.log("Public key submission transaction hash:", tx.hash);
             provider.waitForTransaction(tx.hash); 
         });

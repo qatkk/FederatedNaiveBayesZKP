@@ -2,6 +2,8 @@ const utils = require("ffjavascript").utils;
 const fs = require("fs");
 const web3 = require("web3-utils"); 
 const ethers = require('ethers');
+
+
 const provider = new ethers.providers.InfuraProvider("goerli", "64f2b92ea98d47b8a584976f7f051d08");
 const contract_addr =  fs.readFileSync('./configs/contract_addr.txt','utf8');
 const { promisify } = require('util');
@@ -19,7 +21,7 @@ async function submit_model() {
     input = JSON.parse(input);
     proof = JSON.parse(fs.readFileSync('../zokrates/model_verif/proof.json','utf8'));
     try {
-            await contract.submit_update(proof.proof.a, proof.proof.b, proof.proof.c , 100 , [input.random_mean_x.split(" "), input.random_mean_y.split(" ")], [input.cipher_mean_x.split(" "), input.cipher_mean_y.split(" ")], [input.random_var_x.split(" "), input.random_var_y.split(" ")], [input.cipher_var_x.split(" "), input.cipher_var_y.split(" ")], "Running", {gasLimit: 30000000}).then ((tx)=>{
+            await contract.submit_update(proof.proof.a, proof.proof.b, proof.proof.c , 100 , [input.random_mean_x.split(" "), input.random_mean_y.split(" ")], [input.cipher_mean_x.split(" "), input.cipher_mean_y.split(" ")], [input.random_var_x.split(" "), input.random_var_y.split(" ")], [input.cipher_var_x.split(" "), input.cipher_var_y.split(" ")], "Running", {gasLimit: 30000000, gasPrice: 10000000000}).then ((tx)=>{
             console.log("Model update transaction hash:", tx.hash);
             provider.waitForTransaction(tx.hash); 
         });
