@@ -59,7 +59,7 @@ contract FLSC {
     }
     function submit_update(uint[2] memory a, uint[2][2] memory b, uint[2] memory c, uint256 acccuracy, uint256[][] memory _mu_R, uint256 [][] memory _mu_C , uint256[][] memory vars_R, uint256[][] memory vars_C, string memory class) public {
         // require((_mu_R.length == _mu_C.length  ) &&(_mu_R.length == vars_R.length)&& (_mu_R.length == vars_C.length) &&(_mu_R.length == number_of_features), "Incorrect inputs");
-            uint[44] memory input;
+            uint[24] memory input;
         MVSC.Proof  memory proof;
         uint[2] memory _temp_point;
         input[0] = acccuracy; 
@@ -119,7 +119,7 @@ contract FLSC {
     function submit_decryption(uint[2] memory a, uint[2][2] memory b, uint[2] memory c, uint256[] memory _C_mean_prime_x, uint256[] memory _C_mean_prime_y, uint256[] memory _C_var_prime_x, uint256[] memory _C_var_prime_y, uint256[2] memory _Pk, string memory class) public{
         DVSC.Proof memory proof;
         proof =  DVSC.Proof(Pairing.G1Point(a[0],a[1]),Pairing.G2Point(b[0],b[1]),Pairing.G1Point(c[0],c[1]));
-            uint[63] memory input;
+            uint[33] memory input;
         uint32 index; 
         for (uint32 input_ = 0; input_ < 6; input_++ ) {
             for (uint32 feature = 0; feature < number_of_features; feature++) { 

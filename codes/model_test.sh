@@ -1,6 +1,5 @@
 #!/bin/bash
 
-echo "Please set your desired number of features if you want to change the data if not set the value in \"number_of_features.txt\" to a vlue less than 5"
 python3.9 preprocessing.py 
 echo "Preprocessing the data"
 python3.9 data_categ.py
