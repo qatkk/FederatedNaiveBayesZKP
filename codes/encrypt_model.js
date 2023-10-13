@@ -5,14 +5,14 @@ const {BabyJubPoint, Fr} = require("./BabyJubPoint");
 const utils = require("ffjavascript").utils;
 
 
-public_key_temp = fs.readFileSync("./output/public_key.txt", "utf8"); 
+public_key_temp = fs.readFileSync("../output/public_key.txt", "utf8"); 
 public_key_temp = public_key_temp.split(" "); 
-let data_dir = "./output/data.txt";
-let sc_input_file_dir = "./output/sc_input.txt";
+let data_dir = "../output/data.txt";
+let sc_input_file_dir = "../output/sc_input.txt";
 
 public_key = new BabyJubPoint(public_key_temp[0], public_key_temp[1]); 
 
-let number_of_attributes = parseInt(fs.readFileSync("./configs/number_of_features.txt", "utf8"));
+let number_of_attributes = parseInt(fs.readFileSync("../configs/number_of_features.txt", "utf8"));
 
 data =  fs.readFileSync(data_dir,'utf8');
 data = data.split(" "); 
@@ -94,38 +94,3 @@ fs.writeFileSync(sc_input_file_dir, sc_input_json, (error) => {
     throw error;
     }
 });
-
-
-// var encrypted = {
-//     "mean_message": message_mean.join(),
-//     "mean_rendoms": random_mean.join(), 
-//     "mean_ciphers": cipher_mean.join(),
-//     "var_message": message_var.join(),
-//     "var_randoms": random_var.join(), 
-//     "var_ciphers": cipher_var.join()
-// }; 
-
-// var plain_text = {
-//     "means": means.join(), 
-//     "vars": vars.join()
-// };
-
-
-// encrypted_txt = JSON.stringify(encrypted);
-
-// fs.writeFile("./output/encrypted.json", encrypted_txt, (error) => {
-//   if (error) {
-//     console.error(error);
-//     throw error;
-//     }
-// });
-
-// plain_text = JSON.stringify(plain_text);
-
-// fs.writeFile("./output/feature_values.json", plain_text, (error) => {
-//   if (error) {
-//     console.error(error);
-
-//     throw error;
-//     }
-// });

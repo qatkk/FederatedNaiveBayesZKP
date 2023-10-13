@@ -1,0 +1,187 @@
+{
+  "_format": "hh-sol-cache-2",
+  "files": {
+    "/Users/ghazalehkeshavarz/Documents/study/Barcelona/FederatedNaiveBayesZKP/contracts/BJJ.sol": {
+      "lastModificationDate": 1696840959166,
+      "contentHash": "86832fcca0a4fbd3e4e5f56124443166",
+      "sourceName": "contracts/BJJ.sol",
+      "solcConfig": {
+        "version": "0.8.6",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        ">=0.4.17 <0.8.7"
+      ],
+      "artifacts": [
+        "BJJ"
+      ]
+    },
+    "/Users/ghazalehkeshavarz/Documents/study/Barcelona/FederatedNaiveBayesZKP/contracts/FLSC.sol": {
+      "lastModificationDate": 1697187575197,
+      "contentHash": "6c3931dcf9a6b9eaa32e1e72c8efd25b",
+      "sourceName": "contracts/FLSC.sol",
+      "solcConfig": {
+        "version": "0.8.6",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./BJJ.sol",
+        "./verifier.sol"
+      ],
+      "versionPragmas": [
+        ">=0.8.0 <0.8.7"
+      ],
+      "artifacts": [
+        "FLSC"
+      ]
+    },
+    "/Users/ghazalehkeshavarz/Documents/study/Barcelona/FederatedNaiveBayesZKP/contracts/verifier.sol": {
+      "lastModificationDate": 1697187575204,
+      "contentHash": "042158252acfb694ea4b75290f34eb0a",
+      "sourceName": "contracts/verifier.sol",
+      "solcConfig": {
+        "version": "0.8.6",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "DVSC",
+        "MVSC",
+        "Pairing"
+      ]
+    },
+    "/Users/ghazalehkeshavarz/Documents/study/Barcelona/FederatedNaiveBayesZKP/contracts/DVSC.sol": {
+      "lastModificationDate": 1697187575184,
+      "contentHash": "c4409c7365751666281cae1167954a8a",
+      "sourceName": "contracts/DVSC.sol",
+      "solcConfig": {
+        "version": "0.8.6",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "Pairing",
+        "Verifier"
+      ]
+    },
+    "/Users/ghazalehkeshavarz/Documents/study/Barcelona/FederatedNaiveBayesZKP/contracts/MVSC.sol": {
+      "lastModificationDate": 1697187548693,
+      "contentHash": "fedbedc59dac7e14de44deba3dceb858",
+      "sourceName": "contracts/MVSC.sol",
+      "solcConfig": {
+        "version": "0.8.6",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "Pairing",
+        "Verifier"
+      ]
+    }
+  }
+}

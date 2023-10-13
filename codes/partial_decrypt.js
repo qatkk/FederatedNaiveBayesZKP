@@ -5,11 +5,11 @@ const utils = require("ffjavascript").utils;
 const web3 = require("web3-utils"); 
 const ethers = require('ethers');
 const provider = new ethers.providers.InfuraProvider("goerli", "64f2b92ea98d47b8a584976f7f051d08");
-const contract_addr =  fs.readFileSync('./configs/contract_addr.txt','utf8');
+const contract_addr =  fs.readFileSync('../configs/contract_addr.txt','utf8');
 const { promisify } = require('util');
 const sleep = promisify(setTimeout);
 
-const contract_ABI = fs.readFileSync('./ABI.txt','utf8');
+const contract_ABI = fs.readFileSync('../configs/ABI.txt','utf8');
 let private_key = "5f22a80a0824462fc1ed3b79306696b79dd3ed5dbb9a69287f1aa2cddb4413ef";
 let wallet = new ethers.Wallet(private_key, provider);
 const contract = new ethers.Contract(contract_addr, contract_ABI, wallet);
@@ -19,12 +19,12 @@ const contract = new ethers.Contract(contract_addr, contract_ABI, wallet);
 var data; 
 const current_decryptor_id = 2; 
 const decryption_class = "Running";
-let number_of_attributes = parseInt(fs.readFileSync("./configs/number_of_features.txt", "utf8"));
+let number_of_attributes = parseInt(fs.readFileSync("../configs/number_of_features.txt", "utf8"));
 
 let cipher_point = new BabyJubPoint(); 
 let random_point = new BabyJubPoint(); 
-let output_file_dir = './output/decryption_output.txt'; 
-let sc_input_file_dir = './output/sc_decryption_input.txt';
+let output_file_dir = '../output/decryption_output.txt'; 
+let sc_input_file_dir = '../output/sc_decryption_input.txt';
 
 
 async function retrieve_varience_ciphertext() {
@@ -92,7 +92,7 @@ let var_randoms;
 let varience_cipher_points = Array(2).fill().map(() => Array(number_of_attributes).fill(0));
 let var_ciphers; 
 try {
-  data = fs.readFileSync("./output/secret_keys.txt", "utf8");
+  data = fs.readFileSync("../output/secret_keys.txt", "utf8");
 } catch (error) {
   console.error(error);
   throw error;
@@ -100,7 +100,6 @@ try {
 const secret_keys = JSON.parse(data);
 
 async function decrypt (){
-    console.log(secret_keys);
     await return_partial_decrypted_mu().then((data)=>{
     mu_ciphers = data.value.split(","); 
     });

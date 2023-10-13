@@ -3,17 +3,17 @@ import numpy as np
 import pandas as pd
 from matplotlib import backend_tools, pyplot as plt
 
-file = open("class.txt", "r")
+file = open("../output/class.txt", "r")
 classes = file.read()
 classes = classes.split(",")
 file.close()
 
-data_file_dir = "./output/data.txt"
-sc_input_file_dir = "./output/sc_input.txt"
+data_file_dir = "../output/data.txt"
+sc_input_file_dir = "../output/sc_input.txt"
 
-file = open("./configs/number_of_features.txt")
+file = open("../configs/number_of_features.txt")
 number_of_features  = int(file.read())
-file = open("./configs/batch_size.txt")
+file = open("../configs/batch_size.txt")
 batch_size_input  = int(file.read())
 file.close()
 
@@ -48,7 +48,7 @@ def train_on_class(label, batch_size, submit_number, zokrates_input_numbers, val
 
 
 def test(label) :
-    data = pd.read_csv(f"./DataSets/CategorizedData/{label}.csv", delimiter=",")
+    data = pd.read_csv(f"../DataSets/CategorizedData/{label}.csv", delimiter=",")
     data = data.to_numpy()
     np.random.shuffle(data)
     values = data
@@ -70,7 +70,7 @@ def test(label) :
     file.close()
 
 
-    with open('class.txt', 'w') as file:
+    with open('../output/class.txt', 'w') as file:
         print(label, file = file )
     file.close()
 

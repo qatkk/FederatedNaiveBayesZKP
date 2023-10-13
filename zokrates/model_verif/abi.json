@@ -8,7 +8,7 @@
         "size": 5,
         "type": "array",
         "components": {
-          "size": 1000,
+          "size": 100,
           "type": "u32"
         }
       }

@@ -25,5 +25,11 @@
     "web3-utils": "^1.7.0",
     "worker-threads": "^1.0.0",
     "worker-threads.js": "^1.6.5"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^3.0.0",
+    "@nomiclabs/hardhat-ethers": "^2.2.3",
+    "dotenv": "^16.3.1",
+    "hardhat": "^2.18.0"
   }
 }

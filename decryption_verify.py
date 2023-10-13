@@ -1,6 +1,6 @@
 import subprocess
 
-result = subprocess.run(['cat ../../codes/output/decryption_output.txt'], stdout=subprocess.PIPE, shell=True, text=True)
+result = subprocess.run(['cat ../../output/decryption_output.txt'], stdout=subprocess.PIPE, shell=True, text=True)
 input = result.stdout
 
 witness = subprocess.run(['zokrates compute-witness -a ' + input + ' --verbose'], stdout=subprocess.PIPE, shell=True, text=True)

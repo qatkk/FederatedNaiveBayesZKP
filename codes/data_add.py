@@ -8,14 +8,14 @@ import pandas as pd
 from sklearn import tree
 from scipy.stats import norm 
 from sklearn import  preprocessing
-file = open("class.txt", "r")
+file = open("../output/class.txt", "r")
 classes = file.read()
 classes = classes.split(",")
 file.close()
 duplicate_ratio = 2
 number_of_features = 13
 for label in classes: 
-    data = pd.read_csv(f"./test_data/{label}.csv", delimiter=",")
+    data = pd.read_csv(f"../test_data/{label}.csv", delimiter=",")
     data = data.to_numpy()
     np.random.shuffle(data)
     lables = data[:, len(data.T)-1]
@@ -28,7 +28,7 @@ for label in classes:
     added_labels = np.asarray([label]* len(added))
     adding = np.concatenate((added, added_labels[:, None]), axis=1)
     adding = pd.DataFrame(adding)
-    adding.to_csv(f"./test_data/{label}.csv", mode = 'a', sep = ",", index= False, header= False)
+    adding.to_csv(f"../test_data/{label}.csv", mode = 'a', sep = ",", index= False, header= False)
 
 
 

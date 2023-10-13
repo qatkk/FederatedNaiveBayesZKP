@@ -11,6 +11,6 @@ print("compute setup result", setup.stdout)
 
 
 
-verifier = subprocess.run(['zokrates export-verifier -o ../../smart_contracts/MVSC.sol'], stdout=subprocess.PIPE, shell=True, text=True)
+verifier = subprocess.run(['zokrates export-verifier -o ../../contracts/MVSC.sol'], stdout=subprocess.PIPE, shell=True, text=True)
 print("compute witness result", verifier.stdout)
 

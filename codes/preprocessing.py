@@ -4,14 +4,14 @@ import subprocess
 
 
 
-compile  = subprocess.run(['rm -rf ./DataSets/PreprocessedData'], stdout=subprocess.PIPE, shell=True, text=True)
-compile = subprocess.run(['mkdir ./DataSets/PreprocessedData'], stdout=subprocess.PIPE, shell=True, text=True)
-file = open("./configs/number_of_features.txt")
+compile  = subprocess.run(['rm -rf ../DataSets/PreprocessedData'], stdout=subprocess.PIPE, shell=True, text=True)
+compile = subprocess.run(['mkdir ../DataSets/PreprocessedData'], stdout=subprocess.PIPE, shell=True, text=True)
+file = open("../configs/number_of_features.txt")
 temp = file.read()
 file.close()
 number_of_features = int(temp)
 for client_id in range(4):
-    data = pd.read_csv(f"./DataSets/14107121/Client{client_id+1}.csv", delimiter=",")
+    data = pd.read_csv(f"../DataSets/14107121/Client{client_id+1}.csv", delimiter=",")
     headers = data.columns
     data = data.to_numpy()
     temp = data.T
@@ -31,5 +31,5 @@ for client_id in range(4):
         data = np.concatenate((data, accelerated[2:len(accelerated), None]), axis = 1 )
     data = data + 100 
     client = pd.DataFrame(np.concatenate((data, lables[2:len(lables), None]), axis = 1)) 
-    client.to_csv(f"./DataSets/PreprocessedData/client{client_id+1}.csv", index= False, sep = ",", header= False)
+    client.to_csv(f"../DataSets/PreprocessedData/client{client_id+1}.csv", index= False, sep = ",", header= False)
 
