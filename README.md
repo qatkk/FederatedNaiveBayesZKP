@@ -6,15 +6,15 @@ In essence, this code showcases the concrete manifestation of the innovative ide
 
 By delving into this codebase, one can gain a deeper understanding of how the federated learning framework, as detailed in the research paper, can be implemented and operationalized. It provides a valuable resource for researchers, developers, and enthusiasts to explore, scrutinize, and potentially build upon, thereby advancing the field of federated learning and its integration with zkSNARKs and blockchain technology.
 
-Certainly, here's a structured description of the project's components:
+Certainly, there's a structured description of the project's components:
 
 **Codes:**  
 This directory contains Python and JavaScript files that are responsible for various aspects of the project, including model training, smart contract interaction, and decryption processes.
-- `initialize_encryption.js` : Creates the encryption keys for the number of entities (MOs) for the specified number of entities in the configs folder. 
-- `data_add.py` and `data_categ.py` and `preprocessing.py`: Are Python files for preprocessing tha data corresponding to the scheme's needs.
-- `class_learn.py` : Trains the data for a specified batch size and class. 
+- `initialize_encryption.js`: Creates the encryption keys for the number of entities (MOs) for the specified number of entities in the configs folder. 
+- `data_add.py` and `data_categ.py` and `preprocessing.py`: These are Python files for preprocessing tha data corresponding to the scheme's needs.
+- `class_learn.py`: Trains the data for a specified batch size and class. 
 - `partial_decrypt.js`: JavaScript file related to the partial decryption process.
-- `encrypt.js ` and `encrypt_model.js`: Are the Javascript file to conduct the enryption on the trained model parameters. 
+- `encrypt.js ` and `encrypt_model.js`: These are the Javascript file to conduct the encryption on the trained model parameters. 
 -  `sc_submit_model.js`, `sc_start_decryption.js`, `sc_submit_decryption.js`, and `sc_submit_public_key.js` : Are files for interacting with the smart contract at the address specified in the "configs/contract_addr.txt" file. 
 
 **Smart Contracts:**  
@@ -36,16 +36,18 @@ This structured organization of the project's components facilitates clarity and
 
 ** Project setup: ** 
 
-- `NodeJS dependencies`: In order to install nodejs dependencies after cloning the repository please run "npm install".
-- `zkSNARK`: In this project we use the ZoKrates toolset. You can find more information about this project at link https://zokrates.github.io/. In order to be able to run ZoKrates codes in this repository please install the 7.14 version of ZoKrates. https://github.com/Zokrates/ZoKrates/releases/tag/0.7.14
+- `NodeJS dependencies`: In order to install NodeJS dependencies after cloning the repository please run "npm install".
+- `zkSNARK`: In this project we use the ZoKrates toolset. You can find more information about this project at the link https://zokrates.github.io/. In order to be able to run ZoKrates codes in this repository please install the 7.14 version of ZoKrates. https://github.com/Zokrates/ZoKrates/releases/tag/0.7.14
 
 ** Scheme setup: ** 
-- Inorder to generate the verifier smart contracts for computation verification you need to first setup the zkSNARK circuits provided in "zokrates/" folder. For this cause you have to set the number of features and batchsize corresponding to your dataset in `configs/number_of_features.txt` and `configs/batch_size.txt`. 
+- Inorder to generate the verifier smart contracts for computation verification you need to first set up the zkSNARK circuits provided in "zokrates/" folder. For this cause you have to set the number of features and batch size corresponding to your dataset in `configs/number_of_features.txt` and `configs/batch_size.txt`. 
 - Run `setup/setup.sh`. This bash file will first generate the ZoKrates circuits corresponding to your set values in the configs folder. After preparing the ZoKrates file it will compile them and generate the FLSC, DVSC, and MVSC smart contract for the blockchain. And in the end, it will compile these contracts and deploy the FLSC contract to the blockchain at the address: `configs/contract_addr.txt`.  
-
+** Model owner registration: **
+- Since in this case we are just testing the scheme feasibility, the model owner registration is not done for each of the model owners and instead the total public key- the added values for all the public keys of the model owners- is submitted to the contract.
+- To do so, before submitting any model updates, you have to run `test/submit_pk.sh` to send a transaction to the smart contract with the scheme's public key. 
 ** Model training: ** 
 - In order to test the model update process and training you can run the `test/model_test.sh` file. This file will train the model and create a proof corresponding to the trained class. When the model update is verified locally then this file will send a transaction to the submit_model_update() function of the FLSC to update the global model. 
 
 
 ** Decryption process: ** 
-- In order to test the model update process and training you can run the `codes/decrypt_test.sh` file. This file will obtain the global model and create a proof corresponding to the partial decryption. When the decryption is verified locally then this file will send a transaction to the submit_decryption() function of the FLSC to update the partially decrypted model. 
+- In order to test the model update process and training you can run the `codes/decrypt_test.sh` file. This file will obtain the global model and create a proof corresponding to the partial decryption. When the decryption is verified locally this file will send a transaction to the submit_decryption() function of the FLSC to update the partially decrypted model. 
