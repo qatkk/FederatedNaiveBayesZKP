@@ -1,10 +1,10 @@
 #!/bin/bash
 
-python3.9 ../codes/preprocessing.py 
+python3 ../codes/preprocessing.py 
 echo "Preprocessing the data"
-python3.9 ../codes/data_categ.py
+python3 ../codes/data_categ.py
 echo "Data categorized to labels"
-python3.9 ../codes/class_learn.py 
+python3 ../codes/class_learn.py 
 echo "Model trained!"
 node ../codes/encrypt_model.js
 echo "Model encrypted and written to output/data.txt"
