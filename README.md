@@ -47,7 +47,8 @@ At least version 18 is needed. To upgrade (if needed), execute:
 ```
 npm cache clean -f
 npm install -g n
-n stable```
+n stable
+```
 
 - Install NodeJS dependencies. In order to install NodeJS dependencies after cloning the repository please run "npm install --force".
 
@@ -62,10 +63,12 @@ wget https://github.com/Zokrates/ZoKrates/releases/download/0.7.14/zokrates-0.7.
 tar -xzf zokrates-0.7.14-x86_64-unknown-linux-gnu.tar.gz --directory ~/.zokrates
 export PATH=$PATH:~/.zokrates
 ```
-  
+
 Alternatively, a docker image of the 7.14 version of ZoKrates can be obtained with: 
 
-```docker pull zokrates/zokrates:0.7.14```
+```
+docker pull zokrates/zokrates:0.7.14
+```
 
 * Install python and pip:
 
