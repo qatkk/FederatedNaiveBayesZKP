@@ -40,7 +40,6 @@ This structured organization of the project's components facilitates clarity and
 
 - Install npm:
 
-<<<<<<< HEAD
 ```sudo apt-get install npm```
 =======
 ** Scheme setup: ** 
