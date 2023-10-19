@@ -44,7 +44,7 @@ This structured organization of the project's components facilitates clarity and
 ```sudo apt-get install npm```
 =======
 ** Scheme setup: ** 
-- Inorder to generate the verifier smart contracts for computation verification you need to first setup the zkSNARK circuits provided in "zokrates/" folder. For this cause you have to set the number of features and batchsize corresponding to your dataset in `configs/number_of_features.txt` and `configs/batch_size.txt`. 
+- Inorder to generate the verifier smart contracts for computation verification you need to first setup the zkSNARK circuits provided in "zokrates/" folder. For this cause you have to set the number of features and batchsize corresponding to your dataset in `configs/params.json`. As you can see in this file you set the batch size, number of the features of the dataset, number of the model owners, and the class that you want to train and sumti a model for.
 - Run `setup/setup.# FederatedNaiveBayesZKP
 
 The provided code serves as the tangible realization of the proof of concept outlined in the research paper titled "Federify: A Verifiable Federated Learning Scheme based on zkSNARKs and Blockchain." This implementation not only embodies the theoretical concepts discussed in the paper but also demonstrates their practical applicability in the realm of federated learning, zkSNARKs, and blockchain technologies.
