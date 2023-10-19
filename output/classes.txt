@@ -1,0 +1,1 @@
+Jogging,Sitting,Standing,Walking

@@ -12,7 +12,7 @@ let sc_input_file_dir = "../output/sc_input.txt";
 
 public_key = new BabyJubPoint(public_key_temp[0], public_key_temp[1]); 
 
-let number_of_attributes = parseInt(fs.readFileSync("../configs/number_of_features.txt", "utf8"));
+let number_of_attributes = JSON.parse(fs.readFileSync("../configs/params.json", "utf8")).number_of_features;
 
 data =  fs.readFileSync(data_dir,'utf8');
 data = data.split(" "); 

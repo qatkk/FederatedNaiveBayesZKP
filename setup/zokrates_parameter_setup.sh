@@ -1,8 +1,8 @@
 #!/bin/bash
 
 
-beta=$(< ../configs/batch_size.txt)
-feature=$(< ../configs/number_of_features.txt)
+beta=$(node -pe 'JSON.parse(process.argv[1]).batch_size' $(< ../configs/params.json))
+feature=$(node -pe 'JSON.parse(process.argv[1]).number_of_features' $(< ../configs/params.json))
 
 sed "s/number_of_features/$feature/g" ../zokrates/decryption/main_template.zok > ../zokrates/decryption/main.zok
 

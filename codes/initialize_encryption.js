@@ -7,7 +7,8 @@ const utils = require("ffjavascript").utils;
 let secret_keys_dir = "../output/secret_keys.txt";
 let public_keys_dir = "../output/public_key.txt";
 let public_key_compact_dir = "../output/pubkey_compact.txt";
-let number_of_parties = fs.readFileSync('../configs/number_of_MOs.txt','utf8');
+let scheme_params = JSON.parse(fs.readFileSync('../configs/params.json','utf8'));
+let number_of_parties = scheme_params.number_of_MOs;
 
 
 let secret_keys = [number_of_parties];

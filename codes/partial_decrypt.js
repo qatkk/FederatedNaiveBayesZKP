@@ -1,26 +1,32 @@
 const fs = require('fs');
 const {BabyJubPoint, G} = require("./BabyJubPoint");
 const { string } = require('mathjs');
-const utils = require("ffjavascript").utils;
-const web3 = require("web3-utils"); 
 const ethers = require('ethers');
+const { json } = require('hardhat/internal/core/params/argumentTypes');
+const readline = require('readline').createInterface({
+    input: process.stdin,
+    output: process.stdout
+  });
 const provider = new ethers.providers.InfuraProvider("goerli", "64f2b92ea98d47b8a584976f7f051d08");
-const contract_addr =  fs.readFileSync('../configs/contract_addr.txt','utf8');
-const { promisify } = require('util');
-const sleep = promisify(setTimeout);
+const scheme_params = JSON.parse(fs.readFileSync("../configs/params.json", "utf8"));
+const contract_addr =  scheme_params.contract_addr;
 
 const contract_ABI = fs.readFileSync('../configs/ABI.txt','utf8');
 let private_key = "5f22a80a0824462fc1ed3b79306696b79dd3ed5dbb9a69287f1aa2cddb4413ef";
 let wallet = new ethers.Wallet(private_key, provider);
 const contract = new ethers.Contract(contract_addr, contract_ABI, wallet);
-
+let current_decryptor_id = -1; 
 
 
 var data; 
-const current_decryptor_id = 2; 
-const decryption_class = "Running";
-let number_of_attributes = parseInt(fs.readFileSync("../configs/number_of_features.txt", "utf8"));
-
+async function get_decryptor_id() {
+    return new Promise(resolve => readline.question('Select a decryptor ID from 0-' + (scheme_params.number_of_MOs-1) + 'to do the decryption:', ans => {
+        readline.close();
+        resolve(ans);
+    }));
+}
+const decryption_class =  scheme_params.class;
+const number_of_attributes = scheme_params.number_of_features;
 let cipher_point = new BabyJubPoint(); 
 let random_point = new BabyJubPoint(); 
 let output_file_dir = '../output/decryption_output.txt'; 
@@ -100,6 +106,7 @@ try {
 const secret_keys = JSON.parse(data);
 
 async function decrypt (){
+    current_decryptor_id = await get_decryptor_id();
     await return_partial_decrypted_mu().then((data)=>{
     mu_ciphers = data.value.split(","); 
     });
@@ -159,7 +166,7 @@ async function decrypt (){
         "public_key_x": string(G.mul(BigInt(secret_keys.secrets[current_decryptor_id])).x).split("n")[0], 
         "public_key_y": string(G.mul(BigInt(secret_keys.secrets[current_decryptor_id])).y).split("n")[0]
     };
-    
+    console.log("The partially decrypted results for the class" + scheme_params.class + "are : " + JSON.stringify(sc_input));
     sc_input_json = JSON.stringify(sc_input);
     
     fs.writeFileSync(sc_input_file_dir, sc_input_json, (error) => {
@@ -170,7 +177,6 @@ async function decrypt (){
     });
     
 }
-
 
 
 decrypt();

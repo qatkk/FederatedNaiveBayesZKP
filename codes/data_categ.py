@@ -1,5 +1,4 @@
 
-from re import sub
 import pandas as pd 
 import numpy as np 
 import subprocess
@@ -12,7 +11,7 @@ compile = subprocess.run(['mkdir ../DataSets/CategorizedData'], stdout=subproces
 for client_id in range(4)  :
     compile = subprocess.run([f'mkdir ../DataSets/CategorizedData/client{client_id+1}'], stdout=subprocess.PIPE, shell=True, text=True)
     try:
-        file = open("../output/class.txt", "r")
+        file = open("../output/classes.txt", "r")
         submitted_classes = file.read()
         file.close()
         submitted_classes = submitted_classes.split(",")
@@ -27,7 +26,7 @@ for client_id in range(4)  :
     classes = np.unique(lables)
     for label in classes : 
         if not label in submitted_classes:
-            file = open("../output/class.txt", "a")
+            file = open("../output/classes.txt", "a")
             if len(submitted_classes):
                 file.write(f",{label}")
             else :

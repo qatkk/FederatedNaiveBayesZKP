@@ -80,13 +80,13 @@ export function hexToAscii(string: string): string;
 export function toAscii(string: string): string;
 export function bytesToHex(bytes: number[]): string;
 export function numberToHex(value: number | string | BN): string;
-export function checkAddressChecksum(address: string, chainId?: number): boolean;
+export function checkAddressChecksum(address: string): boolean;
 export function fromAscii(string: string): string;
 export function fromDecimal(value: string | number): string;
 export function fromUtf8(string: string): string;
 export function fromWei(value: string | BN, unit?: Unit): string;
 export function hexToBytes(hex: Hex): number[];
-export function hexToNumber(hex: Hex): number;
+export function hexToNumber(hex: Hex,bigIntOnOverflow?: boolean): number | string;
 export function hexToNumberString(hex: Hex): string;
 export function hexToString(hex: Hex): string;
 export function hexToUtf8(string: string): string;
@@ -95,12 +95,12 @@ export function padLeft(value: string | number, characterAmount: number, sign?: 
 export function leftPad(string: string | number, characterAmount: number, sign?: string): string;
 export function rightPad(string: string | number, characterAmount: number, sign?: string): string;
 export function padRight(string: string | number, characterAmount: number, sign?: string): string;
-export function sha3(value: string | BN): string | null;
-export function sha3Raw(value: string | BN): string;
+export function sha3(value: string | BN | Buffer): string | null;
+export function sha3Raw(value: string | BN | Buffer): string;
 export function randomHex(bytesSize: number): string;
 export function utf8ToHex(string: string): string;
 export function stringToHex(string: string): string;
-export function toChecksumAddress(address: string, chainId?: number): string;
+export function toChecksumAddress(address: string): string;
 export function toDecimal(hex: Hex): number;
 export function toHex(value: number | string | BN): string;
 export function toUtf8(string: string): string;
@@ -122,7 +122,7 @@ export function testAddress(bloom: string, address: string): boolean;
 export function testTopic(bloom: string, topic: string): boolean;
 export function getSignatureParameters(signature: string): {r: string; s: string; v: number};
 export function stripHexPrefix(str: string): string;
-export function toNumber(value: number | string | BN): number;
+export function toNumber(value: number | string | BN, bigIntOnOverflow?: boolean): number | string;
 
 // interfaces
 export interface Utils {
@@ -144,7 +144,7 @@ export interface Utils {
     fromUtf8(string: string): string;
     fromWei(value: string | BN, unit?: Unit): string;
     hexToBytes(hex: Hex): number[];
-    hexToNumber(hex: Hex): number;
+    hexToNumber(hex: Hex, bigIntOnOverflow?: boolean): number | string;
     hexToNumberString(hex: Hex): string;
     hexToString(hex: Hex): string;
     hexToUtf8(string: string): string;
@@ -157,7 +157,7 @@ export interface Utils {
     randomHex(bytesSize: number): string;
     utf8ToHex(string: string): string;
     stringToHex(string: string): string;
-    toChecksumAddress(address: string, chainId?: number): string;
+    toChecksumAddress(address: string): string;
     toDecimal(hex: Hex): number;
     toHex(value: number | string | BN): string;
     toUtf8(string: string): string;
@@ -169,7 +169,7 @@ export interface Utils {
     isContractAddressInBloom(bloom: string, contractAddress: string): boolean;
     isTopicInBloom(bloom: string, topic: string): boolean;
     isTopic(topic: string): boolean;
-    jsonInterfaceMethodToString(abiItem: AbiItem): string;
+    _jsonInterfaceMethodToString(abiItem: AbiItem): string;
     soliditySha3(...val: Mixed[]): string | null;
     soliditySha3Raw(...val: Mixed[]): string;
     encodePacked(...val: Mixed[]): string | null;
@@ -179,7 +179,7 @@ export interface Utils {
     testTopic(bloom: string, topic: string): boolean;
     getSignatureParameters(signature: string): {r: string; s: string; v: number};
     stripHexPrefix(str: string): string;
-    toNumber(value: number | string | BN): number;
+    toNumber(value: number | string | BN, bigIntOnOverflow?: boolean): number | string;
 }
 
 export interface Units {
@@ -212,7 +212,7 @@ export interface Units {
     tether: string;
 }
 
-export type AbiType = 'function' | 'constructor' | 'event' | 'fallback';
+export type AbiType = 'function' | 'constructor' | 'event' | 'fallback' | 'receive';
 export type StateMutabilityType = 'pure' | 'view' | 'nonpayable' | 'payable';
 
 export interface AbiItem {

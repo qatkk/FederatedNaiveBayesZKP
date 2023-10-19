@@ -25,7 +25,7 @@ contract FLSC {
     mapping (string => uint256[][])  varience_partial_decrypted;
 
     mapping (string => bool) class_submitted;
-    mapping (string => uint256) submit_count; 
+    mapping (string => uint32) submit_count; 
     mapping (address => bool) is_entity_submitted; 
     mapping (address => bool) is_entity_payed; 
     mapping (address => uint32) entity_participation; 
@@ -59,7 +59,7 @@ contract FLSC {
     }
     function submit_update(uint[2] memory a, uint[2][2] memory b, uint[2] memory c, uint256 acccuracy, uint256[][] memory _mu_R, uint256 [][] memory _mu_C , uint256[][] memory vars_R, uint256[][] memory vars_C, string memory class) public {
         // require((_mu_R.length == _mu_C.length  ) &&(_mu_R.length == vars_R.length)&& (_mu_R.length == vars_C.length) &&(_mu_R.length == number_of_features), "Incorrect inputs");
-            uint[24] memory input;
+            uint[56] memory input;
         MVSC.Proof  memory proof;
         uint[2] memory _temp_point;
         input[0] = acccuracy; 
@@ -82,6 +82,7 @@ contract FLSC {
         input[index + 2] = public_key[1];
         input[index + 3] = uint256(1);
         require(ModelVerifier_inst.verifyTx(proof, input), "Model update must be verified!");
+        submit_count[class] +=1;
         if (!class_submitted[class]) {
             classes.push(class);
             mu_C[class] = _mu_C; 
@@ -119,7 +120,7 @@ contract FLSC {
     function submit_decryption(uint[2] memory a, uint[2][2] memory b, uint[2] memory c, uint256[] memory _C_mean_prime_x, uint256[] memory _C_mean_prime_y, uint256[] memory _C_var_prime_x, uint256[] memory _C_var_prime_y, uint256[2] memory _Pk, string memory class) public{
         DVSC.Proof memory proof;
         proof =  DVSC.Proof(Pairing.G1Point(a[0],a[1]),Pairing.G2Point(b[0],b[1]),Pairing.G1Point(c[0],c[1]));
-            uint[33] memory input;
+            uint[81] memory input;
         uint32 index; 
         for (uint32 input_ = 0; input_ < 6; input_++ ) {
             for (uint32 feature = 0; feature < number_of_features; feature++) { 
@@ -157,5 +158,8 @@ contract FLSC {
     }
     function return_varience_partial_decrypted(string memory class) public  view returns(uint256[][] memory){
         return varience_partial_decrypted[class];
+    }
+    function return_submit_count(string memory class) public view returns(uint32){
+        return submit_count[class];
     }
 }

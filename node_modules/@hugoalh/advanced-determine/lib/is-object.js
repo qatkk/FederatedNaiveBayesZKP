@@ -7,5 +7,5 @@
  */
 function isObject(item) {
 	return (typeof item === "object" && !Array.isArray(item) && item !== null && !(item instanceof RegExp));
-};
+}
 module.exports = isObject;

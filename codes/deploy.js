@@ -3,14 +3,16 @@ const fs = require("fs");
 
 
 async function main() {
-    const number_of_features =  fs.readFileSync('./configs/number_of_features.txt','utf8');
-    const number_of_entities =  fs.readFileSync('./configs/number_of_MOs.txt','utf8');
+    let scheme_params = JSON.parse(fs.readFileSync('./configs/params.json','utf8'));
+    const number_of_features =  scheme_params.number_of_features;
+    const number_of_MOs =  scheme_params.number_of_MOs;
     const FLSC = await ethers.getContractFactory("FLSC");
 
   // Start deployment, returning a promise that resolves to a contract object
-    const FLSC_inst = await FLSC.deploy(number_of_entities, number_of_features, funding = 0, deposit = 0);
-    console.log("Contract deployed to address:", FLSC_inst.address);
-    fs.writeFileSync('./configs/contract_addr.txt',FLSC_inst.address, 'utf8');
+    const FLSC_inst = await FLSC.deploy(number_of_MOs, number_of_features, funding = 0, deposit = 0);
+    console.log("Contract deployed to address: \n", FLSC_inst.address, "\nthe number of features are: ", number_of_features, "\nthe batch_size is set to:", scheme_params.batch_size,  "\nand the number of MOs are:", number_of_MOs );
+    scheme_params.contract_addr = FLSC_inst.address;
+    fs.writeFileSync('./configs/params.json',JSON.stringify(scheme_params), 'utf8');
     await hre.artifacts.readArtifact("./contracts/FLSC.sol:FLSC").then((artifact)=> {
       fs.writeFileSync("./configs/ABI.txt", JSON.stringify(artifact.abi), "utf8");
   });

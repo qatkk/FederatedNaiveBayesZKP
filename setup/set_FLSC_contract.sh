@@ -7,6 +7,6 @@ sed "62s/.*memory input;.*/$result;/" ../contracts/FLSC.sol > ../contracts/temp_
 
 result=$(fgrep "Proof memory proof, " ../contracts/DVSC.sol)
 result=$(echo "${result// Proof memory proof,}")
-sed "122s/.*memory input;.*/$result;/" ../contracts/temp_sc.sol > ../contracts/FLSC.sol
+sed "123s/.*memory input;.*/$result;/" ../contracts/temp_sc.sol > ../contracts/FLSC.sol
 
 rm ../contracts/temp_sc.sol

@@ -1,15 +1,15 @@
 import pandas as pd 
 import numpy as np 
 import subprocess
-
+import json
 
 
 compile  = subprocess.run(['rm -rf ../DataSets/PreprocessedData'], stdout=subprocess.PIPE, shell=True, text=True)
 compile = subprocess.run(['mkdir ../DataSets/PreprocessedData'], stdout=subprocess.PIPE, shell=True, text=True)
-file = open("../configs/number_of_features.txt")
-temp = file.read()
-file.close()
-number_of_features = int(temp)
+file = open('../configs/params.json')
+params = json.load(file)
+file.close
+
 for client_id in range(4):
     data = pd.read_csv(f"../DataSets/14107121/Client{client_id+1}.csv", delimiter=",")
     headers = data.columns
@@ -27,7 +27,7 @@ for client_id in range(4):
     data = data [2:len(data)]
     temp = np.concatenate((data, accelerated[2:len(accelerated), None], accelerated[2:len(accelerated), None]), axis = 1 )
     data = temp
-    for feature in range(len(data[1, :]), number_of_features):
+    for feature in range(len(data[1, :]), params['number_of_features']):
         data = np.concatenate((data, accelerated[2:len(accelerated), None]), axis = 1 )
     data = data + 100 
     client = pd.DataFrame(np.concatenate((data, lables[2:len(lables), None]), axis = 1)) 
