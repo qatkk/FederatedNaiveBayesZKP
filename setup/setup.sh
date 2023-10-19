@@ -26,3 +26,5 @@ echo "Deploying the FLSC contract"
 ./sc_deploy.sh
 
 echo " The FLSC contract is now deployed, you can interact with the contract and run the test scripts to see Federify's functionality"
+
+rm -r ../output/*

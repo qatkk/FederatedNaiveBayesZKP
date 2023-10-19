@@ -1,0 +1,31 @@
+import "./partial_decrypt" as decryption_check
+import "ecc/edwardsScalarMult" as multiply
+import "utils/pack/bool/nonStrictUnpack256" as unpack256
+from "ecc/babyjubjubParams" import BABYJUBJUB_PARAMS
+from "ecc/edwardsOnCurve" import main as is_on_curve
+
+def decryption <D>( field[2][D] Cipher, field[2][D] Cipher_prime, field[2][D] Random, field secret_key) -> bool:
+    bool out = true
+    for u32 i in 0..D do
+        out = out && is_on_curve([Cipher[0][i], Cipher[1][i]], BABYJUBJUB_PARAMS)
+        out = out && is_on_curve([Cipher_prime[0][i], Cipher_prime[1][i]], BABYJUBJUB_PARAMS)
+        out = out && is_on_curve([Random[0][i], Random[1][i]], BABYJUBJUB_PARAMS)
+        out = out && decryption_check([Cipher[0][i], Cipher[1][i]], [Cipher_prime[0][i], Cipher_prime[1][i]], [Random[0][i], Random[1][i]], secret_key)
+    endfor
+    return out
+
+def publickey_check (field[2] Pk, field secret_key) -> bool:
+    field[2] G = [BABYJUBJUB_PARAMS.Gu, BABYJUBJUB_PARAMS.Gv]
+    bool[256] secret_key_bits = unpack256(secret_key)
+
+    field[2] Pk_point = multiply(secret_key_bits, G, BABYJUBJUB_PARAMS)
+    bool out = if Pk_point[0] == Pk[0] && Pk_point[1] == Pk[1] then true else false fi
+    return out
+
+
+def main(field[5] mean_R_x, private field[5] mean_R_y, field[5] mean_C_x, private field[5] mean_C_y, field[5] mean_C_prime_x, private field[5] mean_C_prime_y, field[5] var_R_x, private field[5] var_R_y, field[5] var_C_x, private field[5] var_C_y, field[5] var_C_prime_x, private field[5] var_C_prime_y,  field[2] Pk, private field secret_key) -> bool :
+    bool out = true 
+    out = out && decryption::<5>([mean_C_x, mean_C_y], [mean_C_prime_x, mean_C_prime_y], [mean_R_x, mean_R_y], secret_key)
+    out = out && decryption::<5>([var_C_x, var_C_y], [var_C_prime_x, var_C_prime_y], [var_R_x, var_R_y], secret_key)
+    out = out && publickey_check(Pk, secret_key)
+    return out 
