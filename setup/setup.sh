@@ -1,18 +1,18 @@
 #!/bin/bash
 
-######## Set scheme parameters for zokrates files 
+####### Set scheme parameters for zokrates files 
 echo "Setting scheme parameters for zokrates files from configs folder"
 ./zokrates_parameter_setup.sh
 
 ######### Zokrates model verif setup 
 cd ../zokrates/model_verif 
 echo "Compiling model verification zokrates codes"
-time python3 ../../zok_setup.py
+time ../setup/python3 zok_setup.py
 
 ######### Zokrates decryption verification
 cd ../decryption 
 echo "Compiling decryption verification zokrates code"
-time python3 ../../decryption_setup.py
+time python3 ../setup/decryption_setup.py
 
 cd ../../setup
 echo "Changing verification input sizes for the FLSC smart contract"
@@ -27,4 +27,4 @@ echo "Deploying the FLSC contract"
 
 echo " The FLSC contract is now deployed, you can interact with the contract and run the test scripts to see Federify's functionality"
 
-rm -r ../output/*
+rm -rf ../output/* 

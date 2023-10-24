@@ -5,17 +5,20 @@ The provided code serves as the tangible realization of the proof of concept out
 In essence, this code showcases the concrete manifestation of the innovative ideas presented in the academic work, allowing us to experiment, test, and assess the viability of the Federify scheme within a real-world context. It serves as a testament to the potential and feasibility of the proposed federated learning scheme, underpinned by the powerful combination of zero-knowledge succinct non-interactive arguments of knowledge (zkSNARKs) and blockchain technology.
 
 By delving into this codebase, one can gain a deeper understanding of how the federated learning framework, as detailed in the research paper, can be implemented and operationalized. It provides a valuable resource for researchers, developers, and enthusiasts to explore, scrutinize, and potentially build upon, thereby advancing the field of federated learning and its integration with zkSNARKs and blockchain technology.
-
+<!-- 
 ## Project structure
 
 Certainly, there's a structured description of the project's components:
+
+**Dataset:**
+The dataset used for this implementation can be found at "https://mdx.figshare.com/articles/dataset/Dataset_used_for_federated_learning/14107121". This dataset is used for federated learning use cases and for health monitoring purposes. The dataset classifies the outputs of an accelerometer sensor embedded in smartphones to detect the activity status of the person carrying the smartphone. The activities are classified as Sitting, Jogging, Walking, and Running. Although this dataset has only four numeric features, the preprocessing adds abstract features to it based on the parameters specified in "configs/params.json". In this implementation, the values are solely used as a proof of concept for implementing and applying the scheme structure.
 
 **Codes:**  
 This directory contains Python and JavaScript files that are responsible for various aspects of the project, including model training, smart contract interaction, and decryption processes.
 - `initialize_encryption.js`: Creates the encryption keys for the number of entities (MOs) for the specified number of entities in the configs folder. 
 - `data_add.py` and `data_categ.py` and `preprocessing.py`: These are Python files for preprocessing tha data corresponding to the scheme's needs.
 - `class_learn.py`: Trains the data for a specified batch size and class. 
-- `partial_decrypt.js`: JavaScript file related to the partial decryption process.
+- `partial_decrypt.js`: JavaScript file related to the partial decryption process. This code retrieves the parameters from the smart contract and decrypts them with the set decryptor ID when running the node. 
 - `encrypt.js ` and `encrypt_model.js`: These are the Javascript file to conduct the encryption on the trained model parameters. 
 -  `sc_submit_model.js`, `sc_start_decryption.js`, `sc_submit_decryption.js`, and `sc_submit_public_key.js` : Are files for interacting with the smart contract at the address specified in the "configs/contract_addr.txt" file. 
 
@@ -34,7 +37,7 @@ The Zokrates directory contains zkSNARK circuits and libraries used in the proje
 - `Decryption`: Subdirectory containing zkSNARK circuits related to partial decryption for Model Owners (MOs).
 - `Model_verif`: Subdirectory containing zkSNARK circuits related to model verification for Data Owners (DOs).
 
-This structured organization of the project's components facilitates clarity and ease of navigation, making it straightforward for developers and collaborators to understand and work with the various aspects of the project, including cryptography, smart contracts, and model training.
+This structured organization of the project's components facilitates clarity and ease of navigation, making it straightforward for developers and collaborators to understand and work with the various aspects of the project, including cryptography, smart contracts, and model training. -->
 
 ## Project dependencies:
 
@@ -56,12 +59,16 @@ By delving into this codebase, one can gain a deeper understanding of how the fe
 
 Certainly, there's a structured description of the project's components:
 
+**Dataset:**
+The dataset used for this implementation can be found at "https://mdx.figshare.com/articles/dataset/Dataset_used_for_federated_learning/14107121". This dataset is used for federated learning use cases and for health monitoring purposes. The dataset classifies the outputs of an accelerometer sensor embedded in smartphones to detect the activity status of the person carrying the smartphone. The activities are classified as Sitting, Jogging, Walking, and Running. Although this dataset has only four numeric features, the preprocessing adds abstract features to it based on the parameters specified in "configs/params.json". In this implementation, the values are solely used as a proof of concept for implementing and applying the scheme structure.
+
 **Codes:**  
 This directory contains Python and JavaScript files that are responsible for various aspects of the project, including model training, smart contract interaction, and decryption processes.
 - `initialize_encryption.js`: Creates the encryption keys for the number of entities (MOs) for the specified number of entities in the configs folder. 
 - `data_add.py` and `data_categ.py` and `preprocessing.py`: These are Python files for preprocessing tha data corresponding to the scheme's needs.
 - `class_learn.py`: Trains the data for a specified batch size and class. 
-- `partial_decrypt.js`: JavaScript file related to the partial decryption process.
+- `partial_decrypt.js`:  JavaScript file related to the partial decryption process. This code retrieves the parameters from the smart contract and decrypts them with the set decryptor ID when running the node. 
+- `decrypt.js`: This file uses the final decrypted version of the Mean model parameters from the smart contract and returns the Mean values (decrypted values) as a results. At the end you can see wheter the decrypted values are the same as the summation of all the mean parameters submitted when running the `test\mode_test.sh`. 
 - `encrypt.js ` and `encrypt_model.js`: These are the Javascript file to conduct the encryption on the trained model parameters. 
 -  `sc_submit_model.js`, `sc_start_decryption.js`, `sc_submit_decryption.js`, and `sc_submit_public_key.js` : Are files for interacting with the smart contract at the address specified in the "configs/contract_addr.txt" file. 
 
@@ -132,6 +139,9 @@ pip3 install -r requirements.txt
 
 ## Running instructions
 
+**Blockchain interaction:** 
+In this tests, multiple files interact with the Goerli testnet to send and recieve data. For this cause a Metamask wallet is used. If when running tests you ran into "error: Insufficient funds", the wallet has ran out of Ethers to send transactions to the blockchain. Please use the Goerli faucet at the address "https://goerli-faucet.pk910.de/" and send funds to the test wallet at address "0x4C17894120a506f1e2F34c5fE5FDAba25FF9D3e3" to be able to run the tests. 
+
 **Scheme setup:** 
 - Inorder to generate the verifier smart contracts for computation verification you need to first set up the zkSNARK circuits provided in "zokrates/" folder. For this cause you have to set the number of features and batch size corresponding to your dataset in `configs/number_of_features.txt` and `configs/batch_size.txt`.
 - Run `setup/setup.sh`. This bash file will first generate the ZoKrates circuits corresponding to your set values in the configs folder. After preparing the ZoKrates file it will compile them and generate the FLSC, DVSC, and MVSC smart contract for the blockchain. And in the end, it will compile these contracts and deploy the FLSC contract to the blockchain at the address: `configs/contract_addr.txt`.
@@ -150,7 +160,7 @@ cd ../test
 ```
 
 **Model training:**
-- In order to test the model update process and training you can run the `test/model_test.sh` file. This file will train the model and create a proof corresponding to the trained class. When the model update is verified locally then this file will send a transaction to the submit_model_update() function of the FLSC to update the global model. 
+- In order to test the model update process and training you can run the `test/model_test.sh` file. This file will train the model and create a proof corresponding to the trained class. When the model update is verified locally then this file will send a transaction to the submit_model_update() function of the FLSC to update the global model. You can choose the number of model updates sent to the smart contract at the first of the scripts, this way the script will train and submit multiple model updates for the same class of data specified in the `configs/params.json` file.
 
 ```
 ./model_test.sh
@@ -207,7 +217,7 @@ pip3 install -r requirements.txt
 ```
 
 
-## Running instructions
+<!-- ## Running instructions
 
 **Scheme setup:** 
 - Inorder to generate the verifier smart contracts for computation verification you need to first set up the zkSNARK circuits provided in "zokrates/" folder. For this cause you have to set the number of features and batch size corresponding to your dataset in `configs/number_of_features.txt` and `configs/batch_size.txt`.
@@ -239,4 +249,4 @@ cd ../test
 
 ```
 ./decrypt_test.sh
-```
+``` -->

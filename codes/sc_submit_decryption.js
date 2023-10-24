@@ -24,6 +24,7 @@ async function submit_decryption_result() {
     }
 }
 
+// exports.submit_decryption_result = submit_decryption_result;
 submit_decryption_result().then((res)=>{
     if(!res) console.log("Decryption submitted");
     else console.log("Transaction reverted!");

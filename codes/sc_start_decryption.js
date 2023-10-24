@@ -13,7 +13,7 @@ const contract = new ethers.Contract(contract_addr, contract_ABI, wallet);
 
 async function start_decryption() {
 try {
-    await contract.start_decryption({gasLimit: 5000000, gasPrice: 5000000000}).then ((tx)=>{
+    await contract.start_decryption({gasLimit: 5000000, gasPrice: 15000000000}).then ((tx)=>{
         provider.waitForTransaction(tx.hash); 
         console.log("The start decryption transaction hash is:", tx.hash);
     });

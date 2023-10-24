@@ -69,7 +69,6 @@ def train(label) :
         model_params = json.load(file)
         file.close
     except:
-        print("This is the firs model training")
         model_params = {
             "Means": [output["means"]], 
             "Variences": [output["vars"]]
@@ -77,7 +76,6 @@ def train(label) :
         with open('../output/model_params.json', 'w') as file:
             json.dump(model_params, file, cls=NpEncoder)
         return 
-    print("This isn't the first time training the model")
     model_params['Means'].append(output["means"])
     model_params['Variences'].append(output["vars"])
     with open('../output/model_params.json', 'w') as file:
