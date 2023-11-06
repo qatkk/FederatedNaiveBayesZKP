@@ -7,12 +7,12 @@ echo "Setting scheme parameters for zokrates files from configs folder"
 ######### Zokrates model verif setup 
 cd ../zokrates/model_verif 
 echo "Compiling model verification zokrates codes"
-time ../setup/python3 zok_setup.py
+time python3 ../../setup/zok_setup.py
 
 ######### Zokrates decryption verification
 cd ../decryption 
 echo "Compiling decryption verification zokrates code"
-time python3 ../setup/decryption_setup.py
+time python3 ../../setup/decryption_setup.py
 
 cd ../../setup
 echo "Changing verification input sizes for the FLSC smart contract"
