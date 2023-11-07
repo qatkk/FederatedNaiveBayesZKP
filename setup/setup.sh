@@ -27,4 +27,6 @@ echo "Deploying the FLSC contract"
 
 echo " The FLSC contract is now deployed, you can interact with the contract and run the test scripts to see Federify's functionality"
 
-rm -rf ../output/* 
+rm -rf ../output/
+mkdir ../output
+

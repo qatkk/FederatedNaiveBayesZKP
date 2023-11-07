@@ -184,7 +184,7 @@
       ]
     },
     "/Users/ghazalehkeshavarz/Documents/study/Barcelona/repocheck/FederatedNaiveBayesZKP/contracts/BJJ.sol": {
-      "lastModificationDate": 1698767568321,
+      "lastModificationDate": 1699261586702,
       "contentHash": "86832fcca0a4fbd3e4e5f56124443166",
       "sourceName": "contracts/BJJ.sol",
       "solcConfig": {
@@ -219,7 +219,7 @@
       ]
     },
     "/Users/ghazalehkeshavarz/Documents/study/Barcelona/repocheck/FederatedNaiveBayesZKP/contracts/FLSC.sol": {
-      "lastModificationDate": 1699260587498,
+      "lastModificationDate": 1699377045503,
       "contentHash": "0952c756ad6f0e36f994eaa6c021c7bd",
       "sourceName": "contracts/FLSC.sol",
       "solcConfig": {
@@ -257,8 +257,8 @@
       ]
     },
     "/Users/ghazalehkeshavarz/Documents/study/Barcelona/repocheck/FederatedNaiveBayesZKP/contracts/verifier.sol": {
-      "lastModificationDate": 1699260587508,
-      "contentHash": "f2df4d33ff8a97c0669bc69fa38e92fe",
+      "lastModificationDate": 1699377045512,
+      "contentHash": "63f5e358a3ed7db9ae1b972e18376bc2",
       "sourceName": "contracts/verifier.sol",
       "solcConfig": {
         "version": "0.8.6",
@@ -294,8 +294,8 @@
       ]
     },
     "/Users/ghazalehkeshavarz/Documents/study/Barcelona/repocheck/FederatedNaiveBayesZKP/contracts/DVSC.sol": {
-      "lastModificationDate": 1699260587485,
-      "contentHash": "38024aa71f5bf8661377b74af744bb07",
+      "lastModificationDate": 1699377045487,
+      "contentHash": "d8bd193e062060f6a3b57c53bd735e1c",
       "sourceName": "contracts/DVSC.sol",
       "solcConfig": {
         "version": "0.8.6",
@@ -330,8 +330,8 @@
       ]
     },
     "/Users/ghazalehkeshavarz/Documents/study/Barcelona/repocheck/FederatedNaiveBayesZKP/contracts/MVSC.sol": {
-      "lastModificationDate": 1699260560340,
-      "contentHash": "e92658745fb179a0f22e901745297e29",
+      "lastModificationDate": 1699377009975,
+      "contentHash": "5fc0683244c98cf0a38536726866fd06",
       "sourceName": "contracts/MVSC.sol",
       "solcConfig": {
         "version": "0.8.6",
